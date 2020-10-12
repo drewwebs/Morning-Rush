@@ -15,6 +15,7 @@ You will be tasked with a target dose weight and extraction time, and you will h
 # Wireframes
 
  - Godshot will be a single screen app with a view of a grinder and espresso machine, along with two sliders and one "Grind!" button.
+ - ![Godshot Wireframe](https://imgur.com/a/F74h8pL)
  
 # Timeline
   
