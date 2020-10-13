@@ -4,7 +4,7 @@
   box-shadow: 3px 3px 5px 5px $color, 1px 0px 1px $color;
 }
 
-$main-color: blue;
+$main-color: brown;
 $accent-color: darken($main-color, 20%);
 $background-color: lighten($main-color, 40%);
 
@@ -17,57 +17,11 @@ body {
   flex-direction: column;
 }
 
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-// COMPONENTS
-.card {
-  background: white;
-  height: 50vh;
-  width: 50vw;
-  border-radius: 15px;
-  margin-top: 15px;
-  @include basic-box-shadow($accent-color);
-}
 
-.image-card {
-  background-image: url("../images/yoda-stitch.jpg");
-  background-position: center;
-}
 
-// TYPOGRAPHY
-h2 {
-  font-size: 3rem;
-}
-
-.main-content {
-  height: 800px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-box {
-  height: 500px;
-  width: 500px;
-  border: 1px solid black;
-  background: rgba(255,255,255, .6);
-  transition: 0.3s;
-
-  &:hover {
-    background: rgba(255,255,255,.8)
-  }
-
-  &.canvas {
-    transform: scale(1.3);
-  }
-}
-
-.godshot-header {
-  width: 800px;
+.morning-rush-header {
+  width: 65vw;
   height: 150px;
   border: 1px solid black;
   background: rgba(255,255,255, .6);
@@ -77,5 +31,46 @@ h2 {
   font-size: 46px;
   color: black;
   text-transform: uppercase;
-  letter-spacing: 60px;
+  letter-spacing: 40px;
 }
+
+.order-queue {
+  position:absolute;
+  left: 3%;
+  height: 65vh;
+  width: 15vw;
+  border: 1px solid black;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 30px;
+  color: black;
+  background: rgba(255,255,255, .6);
+
+  &:hover {
+    background: rgba(255,255,255,.8)
+  }
+}
+
+.points-total {
+  position: absolute;
+  top: 3%;
+  left: 3.5%;
+  height: 120px;
+  width: 13vw;
+  color: black;
+  border: 1px solid black;
+  background: rgba(255,255,255, .6);
+
+  &:hover {
+    background: rgba(255,255,255,.8)
+  }
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
