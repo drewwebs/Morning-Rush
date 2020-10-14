@@ -1,10 +1,8 @@
 const canvas = document.getElementById('canvas1');
 const ctx1 = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-// ctx1.fillStyle = 'green';
-// ctx3.fillStyle = 'red';
-ctx1.fillRect(100, 100, 100, 100);
+canvas.width = 800;
+canvas.height = 500;
+
 
 // const canvas2 = document.getElementById('canvas2');
 // const ctx2 = canvas.getContext('2d');
@@ -12,7 +10,7 @@ ctx1.fillRect(100, 100, 100, 100);
 // canvas2.height = 600;
 
 const canvas3 = document.getElementById('canvas3');
-const ctx3 = canvas.getContext('2d');
+const ctx3 = canvas3.getContext('2d');
 canvas3.width = 600;
 canvas3.height = 600;
 
@@ -21,7 +19,14 @@ canvas3.height = 600;
 // canvas4.width = 600;
 // canvas4.height = 600;
 
-// const canvas5 = document.getElementById('canvas5');
-// const ctx5 = canvas.getContext('2d');
-// canvas5.width = 600;
-// canvas5.height = 600;
+const canvas5 = document.getElementById('canvas5');
+const ctx5 = canvas5.getContext('2d');
+canvas5.width = 600;
+canvas5.height = 600;
+
+let keys = [];
+let score = 0;
+let frame = 0;
+let gameSpeed = 1;
+
+const customers = [];

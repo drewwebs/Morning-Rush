@@ -1,28 +1,34 @@
-
-
 class Customer {
-    constructor() {
-        this.spriteWidth = 250;
-        this.spriteHeight = 250;
-        this.width = this.spriteWidth/5;
-        this.height = this.spriteHeight/5;
-        this.x = canvas.width/2 - this.width/2;
-        this.y = canvas.height/2 - this.height/2;
-        this.moving = false;
-        this.frameX = 0;
-        this.frameY = 0;
-    }
-
-    update() {
-        console.log("update");
+    constructor(speed, x) {
+        this.x = x;
+        this.y = canvas3.height / 3;
+        this.width = 32;
+        this.height = 48;
+        this.speed = speed;
     }
 
     draw() {
-        
-        ctx3.fillStyle = 'red';
+        ctx3.fillStyle = 'blue';
         ctx3.fillRect(this.x, this.y, this.width, this.height);
     }
-    
+
+    update() {
+        this.x += this.speed * gameSpeed;
+    }
 }
 
-const customer = new Customer();
+function initCustomers() {
+    for (let i = 0; i < 3; i++) {
+        let x = i * 200;
+        customers.push(new Customer(1, x));
+    }
+}
+
+initCustomers();
+
+function handleCustomers() {
+    for (let i = 0; i < customers.length; i++) {
+        customers[i].update();
+        customers[i].draw();
+    }
+}
