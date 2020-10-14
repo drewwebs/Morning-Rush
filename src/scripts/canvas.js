@@ -24,9 +24,9 @@ const ctx5 = canvas5.getContext('2d');
 canvas5.width = 600;
 canvas5.height = 600;
 
+let customers = [];
 let keys = [];
 let score = 0;
 let frame = 0;
 let gameSpeed = 1;
 
-const customers = [];
