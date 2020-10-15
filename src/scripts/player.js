@@ -4,8 +4,8 @@ class Player {
     constructor() {
         this.spriteHeight = 64;
         this.spriteWidth = 48;
-        this.x = 300;
-        this.y = 350;
+        this.x = 500;
+        this.y = 275;
         this.moving = false;
         this.frameX = 0;
         this.frameY = 0;
@@ -16,7 +16,7 @@ class Player {
 
     update() {
         if (keys[38]) { //up
-            if (this.y > 350) {
+            if (this.y > 275) {
                 this.y -= this.speed;
             } 
             this.moving = true;
@@ -24,7 +24,7 @@ class Player {
         }
 
         if (keys[40]) { //down
-            if (this.y < 500) {
+            if (this.y < 425) {
                 this.y += this.speed;
             }
             this.frameY = 0;
@@ -58,8 +58,6 @@ class Player {
     }
 
     draw() {
-        ctx5.clearRect(0, 0, canvas5.width, canvas5.height);
-
         this.drawSprite(
             this.playerSprite, 
             this.spriteWidth * this.frameX, this.spriteHeight * this.frameY, 

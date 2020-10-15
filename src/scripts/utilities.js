@@ -13,10 +13,14 @@ function animate() {
     
     if (elapsed > fpsInterval) {
         then = now - (elapsed % fpsInterval);
+        ctx5.clearRect(0, 0, canvas5.width, canvas5.height);
+        ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
         player.draw();
         player.update();
-        ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
+        cashier.draw();
+        cashier.update();
         handleCustomers();
+        handleScoreboard();
     }
 }
 
@@ -39,7 +43,7 @@ function handleScoreboard() {
     ctx5.fillStyle = 'black';
     ctx5.strokeStyle = 'black';
     ctx5.font = '16px Roboto';
-    ctx5.strokeText(`Score: ${score}`, 550, 15);
+    ctx5.strokeText(`Score: ${score}`, 700, 20);
 }
 
 function resetGame() {

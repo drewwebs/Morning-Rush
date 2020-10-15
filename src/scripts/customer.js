@@ -5,7 +5,6 @@ sprites.push({ name: 'newton', width: 128, height: 192});
 sprites.push({ name: 'death_scythe', width: 200, height: 192});
 sprites.push({ name: 'crowley_wings', width: 192, height: 192});
 sprites.push({ name: 'jawa', width: 128, height: 192});
-sprites.push({ name: 'L', width: 128, height: 192});
 sprites.push({ name: 'barret', width: 160, height: 224});
 // sprites.push({ name: , width: , height: });
 // sprites.push({ name: , width: , height: });
@@ -31,6 +30,7 @@ class Customer {
     }
 
     order() {
+        cashier.frameY = 3;
         this.waiting = true;
         this.moving = false;
         this.frameY = 0;
@@ -41,6 +41,7 @@ class Customer {
             this.ordered = true;
             this.frameY = 2;
             this.moving = true;
+            cashier.frameY = 2;
         }
     }
 
@@ -49,7 +50,7 @@ class Customer {
         this.moving = false;
         this.frameY = 0;
         this.wait += 1 * gameSpeed;
-        if (this.wait >= 100) {
+        if (this.wait >= 500) {
             this.wait = 0;
             this.waiting = false;
             this.fulfilled = true;
@@ -76,11 +77,20 @@ class Customer {
     }
 
     update() {
-        if (this.y >= 250 && !this.ordered) {
-            this.order();
+        if (!this.ordered) {
+            if (!this.waiting && this.x > 126 && this.y > 0) {
+                this.x -= 0.3;
+            } else if (!this.waiting && this.x < 124 && this.y > 0) {
+                this.x += 0.3;
+            }
+
+            if (this.y >= 195) {
+                this.order();
+            }
         }
 
-        if (this.x >= 500 && !this.fulfilled) {
+
+        if (this.x >= 650 && !this.fulfilled) {
             this.receiveOrder();
         }
 
@@ -93,7 +103,7 @@ class Customer {
 function initCustomers() {
     for (let i = 0; i < 100; i++) {
         let y = i * -200;
-        let x = 100 + (Math.random() * 100);
+        let x = 75 + (Math.random() * 100);
         let randomSprite = sprites[sprites.length * Math.random() | 0];
         customers.push(new Customer(1, x, y, randomSprite));
     }
