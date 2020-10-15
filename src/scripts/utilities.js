@@ -19,8 +19,8 @@ function animate() {
         player.update();
         cashier.draw();
         cashier.update();
-        handleCustomers();
-        handleScoreboard();
+        game.handleCustomers();
+        game.handleScoreboard();
     }
 }
 
@@ -39,18 +39,11 @@ window.addEventListener('keyup', function(e) {
 });
 
 
-function handleScoreboard() {
-    ctx5.fillStyle = 'black';
-    ctx5.strokeStyle = 'black';
-    ctx5.font = '16px Roboto';
-    ctx5.strokeText(`Score: ${score}`, 700, 20);
-}
-
 function resetGame() {
     player.x = 300;
     player.y = 350;
-    score = 0;
-    gameSpeed = 1;
+    game.score = 0;
+    game.speed = 1;
 }
 
 

@@ -1,18 +1,7 @@
-const sprites = [];
 
-sprites.push({name: 'deadpool', width: 128, height: 192});
-sprites.push({ name: 'newton', width: 128, height: 192});
-sprites.push({ name: 'death_scythe', width: 200, height: 192});
-sprites.push({ name: 'crowley_wings', width: 192, height: 192});
-sprites.push({ name: 'jawa', width: 128, height: 192});
-sprites.push({ name: 'barret', width: 160, height: 224});
-// sprites.push({ name: , width: , height: });
-// sprites.push({ name: , width: , height: });
-// sprites.push({ name: , width: , height: });
-// sprites.push({ name: , width: , height: });
 
 class Customer {
-    constructor(speed, x, y, spriteImage) {
+    constructor(speed, x, y, patience, orderType, spriteImage) {
         this.x = x;
         this.y = y;
         this.spriteWidth = spriteImage.width / 4;
@@ -27,6 +16,36 @@ class Customer {
         this.waiting = false;
         this.fulfilled = false;
         this.wait = 0;
+        this.patience = patience;
+        this.orderType = orderType;
+        this.textBubble = false;
+    }
+
+    drawBubble(x, y, w, h) {
+        if (this.textBubble) {
+            const r = x + w;
+            const b = y + h;
+            const radius = 10;
+            ctx3.beginPath();
+            ctx3.fillStyle = "white";
+            ctx3.fill();
+            ctx3.strokeStyle = "black";
+            ctx3.lineWidth = "1";
+            ctx3.moveTo(x + radius, y);
+
+            ctx3.lineTo(r - radius, y);
+            ctx3.quadraticCurveTo(r, y, r, y + radius);
+            ctx3.lineTo(r, y + h - radius);
+            ctx3.quadraticCurveTo(r, b, r - radius, b);
+            ctx3.lineTo(x + radius, b);
+            ctx3.quadraticCurveTo(x, b, x, b - radius);
+            ctx3.lineTo(x, y + radius);
+            ctx3.quadraticCurveTo(x, y, x + radius, y);
+            ctx3.fill();
+            ctx3.stroke();
+            ctx3.fillStyle = "#000";
+            ctx3.fillText(this.orderType, x + 20, y + 30);
+        }
     }
 
     order() {
@@ -34,7 +53,9 @@ class Customer {
         this.waiting = true;
         this.moving = false;
         this.frameY = 0;
-        this.wait += 1 * gameSpeed;
+        this.wait += 1 * game.speed;
+        this.textBubble = true;
+
         if (this.wait >= 100) {
             this.wait = 0;
             this.waiting = false;
@@ -42,6 +63,7 @@ class Customer {
             this.frameY = 2;
             this.moving = true;
             cashier.frameY = 2;
+            this.textBubble = false;
         }
     }
 
@@ -49,13 +71,16 @@ class Customer {
         this.waiting = true;
         this.moving = false;
         this.frameY = 0;
-        this.wait += 1 * gameSpeed;
-        if (this.wait >= 500) {
+        this.patience -= 1 * game.speed;
+        
+        if (this.patience <= 0) {
+            game.lives -= 1;
+            if (game.lives === 0) game.gameOver();
             this.wait = 0;
             this.waiting = false;
             this.fulfilled = true;
-            gameSpeed += 0.1;
-            this.frameY = 2;
+            game.speed += 0.1;
+            this.frameY = 3;
             this.moving = true;
         }
     }
@@ -74,6 +99,7 @@ class Customer {
             this.spriteWidth, this.spriteHeight
         );
         this.handleCustomerFrame();
+        this.drawBubble(this.x + this.spriteWidth, this.y - this.spriteHeight / 2, ctx3.measureText(this.orderType).width + 40, 50);
     }
 
     update() {
@@ -90,30 +116,18 @@ class Customer {
         }
 
 
-        if (this.x >= 650 && !this.fulfilled) {
+        if (this.x >= 600 && !this.fulfilled) {
             this.receiveOrder();
         }
 
         if (this.waiting) return;
 
-        !this.ordered ? this.y += this.speed : this.x += this.speed;
-    }
-}
-
-function initCustomers() {
-    for (let i = 0; i < 100; i++) {
-        let y = i * -200;
-        let x = 75 + (Math.random() * 100);
-        let randomSprite = sprites[sprites.length * Math.random() | 0];
-        customers.push(new Customer(1, x, y, randomSprite));
-    }
-}
-
-initCustomers();
-
-function handleCustomers() {
-    for (let i = 0; i < customers.length; i++) {
-        customers[i].update();
-        customers[i].draw();
+        if (this.ordered && !this.fulfilled) {
+            this.x += this.speed;
+        } else if (this.fulfilled) {
+            this.y -= this.speed;
+        } else {
+            this.y += this.speed;
+        }
     }
 }

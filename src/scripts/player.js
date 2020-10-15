@@ -16,35 +16,37 @@ class Player {
 
     update() {
         if (keys[38]) { //up
-            if (this.y > 275) {
-                this.y -= this.speed;
-            } 
             this.moving = true;
             this.frameY = 3;
+            if (this.x < 170 && this.y < 350) return;
+            else if (this.y > 275) {
+                this.y -= this.speed;
+            } 
         }
 
         if (keys[40]) { //down
+            this.frameY = 0;
+            this.moving = true;
             if (this.y < 425) {
                 this.y += this.speed;
             }
-            this.frameY = 0;
-            this.moving = true;
         }
 
         if (keys[37]) { //left
-            if (this.x > this.spriteWidth) {
-                this.x -= this.speed;
-            }
             this.frameY = 1;
             this.moving = true;
+            if (this.x < 170 && this.y < 350) return;
+            else if (this.x > 125) {
+                this.x -= this.speed;
+            }
         }
 
         if (keys[39]) { //right
-            if (this.x < canvas5.width - this.spriteWidth * 2) {
-                this.x += this.speed;
-            }
             this.frameY = 2;
             this.moving = true;
+            if (this.x < 650) {
+                this.x += this.speed;
+            }
         }
     }
 
