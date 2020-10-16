@@ -35,9 +35,8 @@ canvas6.width = 150;
 canvas6.height = 450;
 
 
-let customers = [];
-let keys = [];
-let score = 0;
-let frame = 0;
-let gameSpeed = 1;
 
+let keys = [];
+let customers = [];
+
+export {ctx6, ctx5, ctx3, ctx1, keys, customers};

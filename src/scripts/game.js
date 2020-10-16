@@ -1,3 +1,6 @@
+import { customers } from './canvas';
+import Customer from './customer';
+
 const orderTypes = ["Small coffee", "Small redeye", "Small latte", "Large latte", "Espresso"];
 
 const sprites = [];
@@ -69,6 +72,6 @@ class Game {
 
 }
 
-const game = new Game();
+export const game = new Game();
 
 game.initCustomers();

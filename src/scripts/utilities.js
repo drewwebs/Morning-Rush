@@ -1,3 +1,7 @@
+import { ctx5, ctx3, ctx6, keys } from './canvas';
+import { player } from './player';
+import { game } from './game';
+
 function startAnimating(fps) {
     fpsInterval = 1000 / fps;
     then = Date.now();
@@ -25,7 +29,7 @@ function animate() {
     }
 }
 
-document.addEventListener('keydown', function(e) {
+window.addEventListener('keydown', function(e) {
 
     if (!e.handled) {
         if (e.code === "Space") {
@@ -37,7 +41,7 @@ document.addEventListener('keydown', function(e) {
 });
 
 
-document.addEventListener('keyup', function(e) {
+window.addEventListener('keyup', function(e) {
     delete keys[e.code];
     player.moving = false;
 

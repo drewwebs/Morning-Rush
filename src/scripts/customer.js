@@ -1,6 +1,6 @@
+import { game } from './game';
 
-
-class Customer {
+export default class Customer {
     constructor(id, speed, x, y, patience, orderType, spriteImage) {
         this.id = id;
         this.x = x;

@@ -1,3 +1,5 @@
+import {ctx6, ctx5, keys} from './canvas';
+
 const items = [
     { name: "Milk", width: 20, height: 20, x: 660, y: 275, icon_url: '/src/images/items/milk-carton.svg'}, 
     { name: "Cup", width: 20, height: 20, x: 400, y: 275, icon_url: '/src/images/items/coffee-mug.svg' },
@@ -175,4 +177,4 @@ class Player {
 
 }
 
-const player = new Player();
+export const player = new Player();
