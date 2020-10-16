@@ -2,8 +2,8 @@
 
 class Player {
     constructor() {
-        this.spriteHeight = 64;
-        this.spriteWidth = 48;
+        this.height = 64;
+        this.width = 48;
         this.x = 500;
         this.y = 275;
         this.moving = false;
@@ -62,10 +62,10 @@ class Player {
     draw() {
         this.drawSprite(
             this.playerSprite, 
-            this.spriteWidth * this.frameX, this.spriteHeight * this.frameY, 
-            this.spriteWidth, this.spriteHeight, 
+            this.width * this.frameX, this.height * this.frameY, 
+            this.width, this.height, 
             this.x, this.y, 
-            this.spriteWidth, this.spriteHeight
+            this.width, this.height
         );
 
         this.handlePlayerFrame();

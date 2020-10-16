@@ -17,8 +17,9 @@ class Game {
     constructor() {
         this.speed = 1;
         this.numCustomers = 5;
-        this.customerSpacing = 600 / this.speed;
+        this.customerSpacing = 200 / this.speed;
         this.customerPatience = 500 / this.speed;
+        this.numOrders = 0;
         this.lives = 5;
         this.score = 0;
     }
@@ -29,7 +30,7 @@ class Game {
             let x = 75 + (Math.random() * 100);
             let randomSprite = sprites[sprites.length * Math.random() | 0];
             let randomOrder = orderTypes[orderTypes.length * Math.random() | 0];
-            customers.push(new Customer(1, x, y, this.customerPatience, randomOrder, randomSprite));
+            customers.push(new Customer(i, this.speed, x, y, this.customerPatience, randomOrder, randomSprite));
         }
     }
     
@@ -47,6 +48,14 @@ class Game {
         ctx5.font = 'bold 16px Roboto';
         ctx5.fillText(`Score: ${this.score}`, 700, 20);
         ctx5.fillText(`Lives: ${this.lives}`, 700, 40);
+    }
+
+    collision(object1, object2) {
+        return !(object1.x > object2.x + object2.width || 
+            object1.x + object1.width < object2.x ||
+            object1.y > object2.y + object2.height ||
+            object1.y + object1.height < object2.y);
+            
     }
 
     nextLevel() {

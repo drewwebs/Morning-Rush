@@ -1,9 +1,7 @@
-
-
 class Cashier {
     constructor() {
-        this.spriteHeight = 48;
-        this.spriteWidth = 32;
+        this.height = 48;
+        this.width = 32;
         this.x = 125;
         this.y = 290;
         this.moving = false;
@@ -20,16 +18,16 @@ class Cashier {
 
 
     update() {
-        console.log("update");
+      
     }
 
     draw() {
         this.drawSprite(
             this.cashierSprite,
-            this.spriteWidth * this.frameX, this.spriteHeight * this.frameY,
-            this.spriteWidth, this.spriteHeight,
+            this.width * this.frameX, this.height * this.frameY,
+            this.width, this.height,
             this.x, this.y,
-            this.spriteWidth, this.spriteHeight
+            this.width, this.height
         );
     }
 
