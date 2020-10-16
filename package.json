@@ -1,7 +1,7 @@
 {
-  "name": "js_project_skeleton",
+  "name": "shinigami-cafe",
   "version": "1.0.0",
-  "description": "skeleton for new JS project",
+  "description": "skeleton for Shinigami Cafe",
   "main": "index.js",
   "browserslist": [
     "last 1 version",
