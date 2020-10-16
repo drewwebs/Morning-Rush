@@ -1,4 +1,9 @@
-
+const items = [
+    { name: "Milk", width: 20, height: 20, x: 660, y: 275, icon_url: '/src/images/items/milk-carton.svg'}, 
+    { name: "Cup", width: 20, height: 20, x: 400, y: 275, icon_url: '/src/images/items/coffee-mug.svg' },
+    { name: "Ice", width: 20, height: 20, x: 400, y: 425, icon_url: '/src/images/items/ice-cube.svg' }
+];
+const upgrades = [];
 
 class Player {
     constructor() {
@@ -12,10 +17,40 @@ class Player {
         this.playerSprite = new Image();
         this.playerSprite.src = 'src/images/ryuk.png';
         this.speed = 10;
+        this.inventory = {};
     }
 
+    // Handle player inventor
+    // window.addEventListener('keydown', )
+
+
+    handleInventory() {
+        items.forEach( item => {
+            if (game.collision(this, item)) {
+                this.inventory[item.name] = item;
+                this.inventory[item.name].icon = new Image();
+                this.inventory[item.name].icon.src = item.icon_url;
+            }
+        });
+
+        upgrades.forEach( upgrade => {
+            if (game.collision(this, upgrade)) this.inventory.forEach( item => this.upgrade(item, upgrade));
+        }); 
+    }
+
+
+    renderItems() {
+        Object.keys(this.inventory).forEach ((key, i) => { 
+            ctx6.drawImage(this.inventory[key].icon, 10, 10 + 150 * i, 125, 125);
+        });
+    }
+
+
+
+
+
     update() {
-        if (keys[38]) { //up
+        if (keys.ArrowUp) { 
             this.moving = true;
             this.frameY = 3;
             if (this.x < 170 && this.y < 350) return;
@@ -24,7 +59,7 @@ class Player {
             } 
         }
 
-        if (keys[40]) { //down
+        if (keys.ArrowDown) { 
             this.frameY = 0;
             this.moving = true;
             if (this.y < 425) {
@@ -32,7 +67,7 @@ class Player {
             }
         }
 
-        if (keys[37]) { //left
+        if (keys.ArrowLeft) {
             this.frameY = 1;
             this.moving = true;
             if (this.x < 170 && this.y < 350) return;
@@ -41,12 +76,17 @@ class Player {
             }
         }
 
-        if (keys[39]) { //right
+        if (keys.ArrowRight) { 
             this.frameY = 2;
             this.moving = true;
             if (this.x < 650) {
                 this.x += this.speed;
             }
+        }
+
+        if (keys.Space) {
+            // debugger;
+            this.handleInventory();
         }
     }
 
@@ -69,6 +109,8 @@ class Player {
         );
 
         this.handlePlayerFrame();
+        this.renderItems();
+        // this.renderInventory();
     }
 
     move() {

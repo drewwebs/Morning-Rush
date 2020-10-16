@@ -26,15 +26,17 @@ function animate() {
 
 window.addEventListener('keydown', function(e) {
     keys = [];
-    keys[e.keyCode] = true;
-    if (keys[37] || keys[38] || keys[39] || keys[40]){
+    keys[e.code] = true;
+    if (keys.ArrowDown || keys.ArrowUp || keys.ArrowRight || keys.ArrowLeft){
         player.move();
     }
+
+
 });
 
 
 window.addEventListener('keyup', function(e) {
-    delete keys[e.keyCode];
+    delete keys[e.code];
     player.moving = false;
 });
 

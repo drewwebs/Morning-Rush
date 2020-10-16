@@ -1,4 +1,4 @@
-const orderTypes = ["Small coffee", "Small redeye", "Small latte", "Large latte"];
+const orderTypes = ["Small coffee", "Small redeye", "Small latte", "Large latte", "Espresso"];
 
 const sprites = [];
 
