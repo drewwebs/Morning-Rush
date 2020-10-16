@@ -32,23 +32,26 @@ class Player {
     handleInventory() {
         items.forEach(item => {
             if (game.collision(this, item)) {
-                if (this.inventory.length >= 3) this.inventory.shift(); 
+                if (this.inventory.length >= 3) this.inventory.pop(); 
                 this.addItemToInventory(item);
             }
         });
 
-        // upgrades.forEach(upgrade => {
-        //     if (game.collision(this, upgrade) && this.inventory[upgrade.reagent]) {
-        //         delete this.inventory[upgrade.reagent];
-        //         this.addItemToInventory(upgrade);
-        //     }
-        // });
+        itemNames = [];
+        game.
+
+        upgrades.forEach(upgrade => {
+            if (game.collision(this, upgrade) && this.inventory[upgrade.reagent]) {
+                delete this.inventory[upgrade.reagent];
+                this.addItemToInventory(upgrade);
+            }
+        });
     }
 
     addItemToInventory(item) {
         item.icon = new Image();
         item.icon.src = item.icon_url;
-        this.inventory.push(item);
+        this.inventory.unshift(item);
     }
 
     clearInventory() {

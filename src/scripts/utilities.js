@@ -26,20 +26,21 @@ function animate() {
 }
 
 document.addEventListener('keydown', function(e) {
-    keys[e.code] = true;
-    e.handled = true;
+
+    if (!e.handled) {
+        if (e.code === "Space") {
+            player.handleInventory();
+        }
+        keys[e.code] = true;
+        e.handled = true;
+    }
 });
 
 
 document.addEventListener('keyup', function(e) {
-    
-    if (e.code === "Space") {
-        player.handleInventory();
-    }
-    // debugger
     delete keys[e.code];
-    // debugger;
     player.moving = false;
+
     e.handled = true;
 });
 

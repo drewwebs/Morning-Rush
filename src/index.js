@@ -1,8 +1,8 @@
 import "./styles/index.scss";
-import Player from './scripts/player';
-import Canvases from './scripts/canvas';
-import utilities from './scripts/utilities';
-import Customer from './scripts/customer';
-import Cashier from './scripts/cashier';
-import Game from './scripts/game';
-import Bubble from './scripts/bubble';
+import './scripts/player';
+import './scripts/canvas';
+import './scripts/utilities';
+import './scripts/customer';
+import './scripts/cashier';
+import './scripts/game';
+import './scripts/bubble';
