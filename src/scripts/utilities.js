@@ -15,6 +15,7 @@ function animate() {
         then = now - (elapsed % fpsInterval);
         ctx5.clearRect(0, 0, canvas5.width, canvas5.height);
         ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
+        ctx6.clearRect(0, 0, canvas6.width, canvas6.height);
         player.draw();
         player.update();
         cashier.draw();
@@ -24,20 +25,22 @@ function animate() {
     }
 }
 
-window.addEventListener('keydown', function(e) {
-    keys = [];
+document.addEventListener('keydown', function(e) {
     keys[e.code] = true;
-    if (keys.ArrowDown || keys.ArrowUp || keys.ArrowRight || keys.ArrowLeft){
-        player.move();
-    }
-
-
+    e.handled = true;
 });
 
 
-window.addEventListener('keyup', function(e) {
+document.addEventListener('keyup', function(e) {
+    
+    if (e.code === "Space") {
+        player.handleInventory();
+    }
+    // debugger
     delete keys[e.code];
+    // debugger;
     player.moving = false;
+    e.handled = true;
 });
 
 
