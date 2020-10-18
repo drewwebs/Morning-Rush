@@ -1,4 +1,34 @@
-import {ctx6, ctx5, keys} from './canvas';
+const canvas5 = document.getElementById('canvas5');
+const ctx5 = canvas5.getContext('2d');
+canvas5.width = 800;
+canvas5.height = 500;
+
+const canvas6 = document.getElementById('canvas6');
+const ctx6 = canvas6.getContext('2d');
+canvas6.width = 150;
+canvas6.height = 450;
+
+
+window.addEventListener('keydown', function (e) {
+
+    if (!e.handled) {
+        if (e.code === "Space") {
+            player.handleInventory();
+        }
+        keys[e.code] = true;
+        e.handled = true;
+    }
+});
+
+
+window.addEventListener('keyup', function (e) {
+    delete keys[e.code];
+    player.moving = false;
+
+    e.handled = true;
+});
+
+let keys = [];
 
 const items = [
     { name: "Milk", width: 20, height: 20, x: 660, y: 275, icon_url: '/src/images/items/milk-carton.svg'}, 
@@ -162,6 +192,8 @@ class Player {
     }
     
     draw() {
+        ctx5.clearRect(0, 0, canvas5.width, canvas5.height);
+        ctx6.clearRect(0, 0, canvas6.width, canvas6.height);
         this.drawSprite(
             this.playerSprite, 
             this.width * this.frameX, this.height * this.frameY, 

@@ -1,5 +1,4 @@
-import { customers } from './canvas';
-import Customer from './customer';
+import Customer from './customer.js';
 
 const orderTypes = ["Small coffee", "Small redeye", "Small latte", "Large latte", "Espresso"];
 
@@ -19,6 +18,7 @@ sprites.push({ name: 'barret', width: 160, height: 224 });
 class Game {
     constructor() {
         this.speed = 1;
+        this.customers = []
         this.numCustomers = 5;
         this.customerSpacing = 200 / this.speed;
         this.customerPatience = 500 / this.speed;
@@ -33,15 +33,15 @@ class Game {
             let x = 75 + (Math.random() * 100);
             let randomSprite = sprites[sprites.length * Math.random() | 0];
             let randomOrder = orderTypes[orderTypes.length * Math.random() | 0];
-            customers.push(new Customer(i, this.speed, x, y, this.customerPatience, randomOrder, randomSprite));
+            this.customers.push(new Customer(i, this.speed, x, y, this.customerPatience, randomOrder, randomSprite));
         }
     }
     
     
     handleCustomers() {
-        for (let i = 0; i < customers.length; i++) {
-            customers[i].update();
-            customers[i].draw();
+        for (let i = 0; i < this.customers.length; i++) {
+            this.customers[i].update();
+            this.customers[i].draw();
         }
     }
 

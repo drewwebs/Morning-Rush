@@ -9,34 +9,18 @@ background.onload = function() {
 };
 
 
-// const canvas2 = document.getElementById('canvas2');
-// const ctx2 = canvas.getContext('2d');
-// canvas2.width = 800;
-// canvas2.height = 500;
 
-const canvas3 = document.getElementById('canvas3');
-const ctx3 = canvas3.getContext('2d');
-canvas3.width = 800;
-canvas3.height = 500;
+
+
 
 // const canvas4 = document.getElementById('canvas4');
 // const ctx4 = canvas.getContext('2d');
 // canvas4.width = 800;
 // canvas4.height = 500;
 
-const canvas5 = document.getElementById('canvas5');
-const ctx5 = canvas5.getContext('2d');
-canvas5.width = 800;
-canvas5.height = 500;
-
-const canvas6 = document.getElementById('canvas6');
-const ctx6 = canvas6.getContext('2d');
-canvas6.width = 150;
-canvas6.height = 450;
 
 
 
-let keys = [];
-let customers = [];
 
-export {ctx6, ctx5, ctx3, ctx1, keys, customers};
+
+export { ctx1 };

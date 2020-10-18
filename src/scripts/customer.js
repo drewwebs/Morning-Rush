@@ -1,4 +1,10 @@
-import { game } from './game';
+import { game } from './game.js';
+import Bubble from './bubble.js';
+
+const canvas3 = document.getElementById('canvas3');
+const ctx3 = canvas3.getContext('2d');
+canvas3.width = 800;
+canvas3.height = 500;
 
 export default class Customer {
     constructor(id, speed, x, y, patience, orderType, spriteImage) {
@@ -80,6 +86,7 @@ export default class Customer {
     }
     
     draw() {
+        ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
         ctx3.drawImage(
             this.customerSprite,
             this.width * this.frameX, this.height * this.frameY,
@@ -95,7 +102,7 @@ export default class Customer {
         
         update() {
             // handle customer collision
-            customers.forEach( customer => {
+            game.customers.forEach( customer => {
                 if (customer.id < this.id) {
                     if (game.collision(this, customer) && this.patience > 0) {
                         this.wait();
@@ -128,7 +135,7 @@ export default class Customer {
             // Move bubble over
             if (this.waiting) {
                 let collision = false;
-                customers.forEach(customer => {
+                game.customers.forEach(customer => {
                     if (customer.id < this.id && this.showBubble && customer.showBubble && game.collision(this.bubble, customer.bubble)) {
                         collision = true;
                     }
@@ -145,7 +152,7 @@ export default class Customer {
             if (this.ordered && !this.fulfilled) {
                 this.x += this.speed;
                 
-            customers.forEach(customer => {
+            game.customers.forEach(customer => {
                 if (customer.id < this.id) {
                     if (this.showBubble && customer.showBubble && game.collision(this.bubble, customer.bubble)) {
                         this.bubble.y += 1;
@@ -168,3 +175,5 @@ export default class Customer {
 
     }
 }
+
+
