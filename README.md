@@ -1,24 +1,22 @@
-# Godshot
+# Morning Rush
 
-Godshot will be a coffee brewing training simulator.  
+Morning rush will be a tower defense/coffee bar simulator hybrid.
 
 ## Description
-You will be tasked with a target dose weight and extraction time, and you will have to adjust grind size + grind time until you hit the exact specs!  The less time it takes you, the higher your score.
+Customers will flow into the shop and place orders for espresso drinks, which you will be expected to get out to them in 30 seconds.  Each successful drink prepared with award 1 point, while each failure will cost a life.  You will have 5 lives each game.
 
 ## Functionality
 
- - Godshot will animate your water as it moves throught he coffee grinds (quickly through course grinds, slowly through fine ones).
- - Users will be use sliders to adjust grind time and grind size, and then see how their shot pulls in real time.
- - Users will be able to choose from 3 difficulty settings which determine how out of spec the starting grind is.
- - Production README
+ - Morning Rush will feature an order queue on the left, which will show you which orders you have yet to complete.
+ - Users will be able to click on different elements of the bar to create drink components (click on milk to pour milk, click on grinder to grind espresso, click on grouphead to pull a shot, click on steam wand to steam milk).  All of these will be required to be completed in the correct order to produce a drink.
 
 ## Wireframes
 
- - Godshot will be a single screen app with a view of a grinder and espresso machine, along with two sliders and one "Grind!" button.
- ![Godshot Wireframe](https://i.imgur.com/zUzztbV.png)
+ - Morning Rush will be a single screen app with a view of a grinder and espresso machine.
+ ![Morning Rush Wireframe](https://i.imgur.com/cNkVcKD.png)
  
 ## Technologies
- Godshot will use the following technologies:
+ Morning Rush will use the following technologies:
  - Vanilla Javascript for logic and jQuery for button inputs
  - Canvas for rendering and graphics
  
@@ -26,8 +24,9 @@ You will be tasked with a target dose weight and extraction time, and you will h
   ### Day 1:
    Initial setup.  Have project skeleton and basic site layout complete, with clickable buttons.
   ### Day 2: 
-   Implement sliders that control appropriate parameters.  Work on canvas to get machine and grinder rendered on the page.  Output results of the grind and allow user to try again until godshot is achieved.
+   Work on canvas to get machine and grinder rendered on the page.  Allow different elements to be clicked and produce drink components
   ### Day 3: 
-   Add animations for grinding coffee, and brewing coffee.  Brewing should give visual feedback that hints at when your parameters are off so that you can adjust accordingly.
+   Add customer orders and order timer, add life count and decrement upon unsuccessful order
 ## Bonus Features
-  - Add different brew methods, such as Chemex and V60
+  - Add global high score tracking
+  - Add decaf option and extra toppers for orders
