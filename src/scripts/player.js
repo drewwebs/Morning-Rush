@@ -1,3 +1,4 @@
+
 const canvas5 = document.getElementById('canvas5');
 const ctx5 = canvas5.getContext('2d');
 canvas5.width = 800;
@@ -9,19 +10,19 @@ canvas6.width = 150;
 canvas6.height = 450;
 
 const items = [
-    { name: "Milk", width: 20, height: 20, x: 660, y: 275, icon_url: '/src/images/items/milk-carton.svg'}, 
-    { name: "Cup", width: 20, height: 20, x: 400, y: 275, icon_url: '/src/images/items/coffee-mug.svg' },
-    { name: "Ice", width: 20, height: 20, x: 400, y: 425, icon_url: '/src/images/items/ice-cube.svg' }
+    { name: "Milk", width: 20, height: 20, x: 660, y: 275, icon_url: './src/images/items/milk-carton.svg'}, 
+    { name: "Cup", width: 20, height: 20, x: 400, y: 275, icon_url: './src/images/items/coffee-mug.svg' },
+    { name: "Ice", width: 20, height: 20, x: 400, y: 425, icon_url: './src/images/items/ice-cube.svg' }
 ];
 
 const upgrades = [
-    { name: "Steamed Milk", width: 20, height: 20, x: 270, y: 275, reagent: "Milk", icon_url: '/src/images/items/red-milk-carton.svg'},
-    { name: "Hot Coffee", width: 20, height: 20, x: 320, y: 425, reagent: "Cup", icon_url: '/src/images/items/hot-coffee.svg'},
-    { name: "Iced Coffee", width: 20, height: 20, x: 400, y: 425, reagent: "Hot Coffee", icon_url: '/src/images/items/iced-coffee.svg' },
-    { name: "Espresso", width: 20, height: 20, x: 320, y: 275, reagent: "Cup", icon_url: '/src/images/items/hot-espresso.svg' },
-    { name: "Redeye", width: 20, height: 20, x: 320, y: 275, reagent: "Hot Coffee", icon_url: '/src/images/items/redeye.svg' },
-    { name: "Latte", width: 20, height: 20, x: 320, y: 275, reagent: "Steamed Milk", icon_url: '/src/images/items/latte.svg'},
-    { name: "Iced Latte", width: 20, height: 20, x: 400, y: 425, reagent: "Latte", icon_url: '/src/images/items/iced-latte.svg' },    
+    { name: "Steamed Milk", width: 20, height: 20, x: 270, y: 275, reagent: "Milk", icon_url: './src/images/items/red-milk-carton.svg'},
+    { name: "Hot Coffee", width: 20, height: 20, x: 320, y: 425, reagent: "Cup", icon_url: './src/images/items/hot-coffee.svg'},
+    { name: "Iced Coffee", width: 20, height: 20, x: 400, y: 425, reagent: "Hot Coffee", icon_url: './src/images/items/iced-coffee.svg' },
+    { name: "Espresso", width: 20, height: 20, x: 320, y: 275, reagent: "Cup", icon_url: './src/images/items/hot-espresso.svg' },
+    { name: "Redeye", width: 20, height: 20, x: 320, y: 275, reagent: "Hot Coffee", icon_url: './src/images/items/redeye.svg' },
+    { name: "Latte", width: 20, height: 20, x: 320, y: 275, reagent: "Steamed Milk", icon_url: './src/images/items/latte.svg'},
+    { name: "Iced Latte", width: 20, height: 20, x: 400, y: 425, reagent: "Latte", icon_url: './src/images/items/iced-latte.svg' },    
 ];
 
 const servingArea = { x: 500, y: 275, width: 100, height: 20 };

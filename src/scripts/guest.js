@@ -19,7 +19,7 @@ export default class Guest {
         this.frameY = 0;
         this.speed = speed;
         this.guestSprite = new Image();
-        this.guestSprite.src = `src/images/${spriteImage.name}.png`;
+        this.guestSprite.src = `./src/images/${spriteImage.name}.png`;
         this.ordered = false;
         this.waiting = false;
         this.frustrated = false;
