@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, outputDir),
     filename: "[name].js",
-    publicPath: "/src/index.js",
+    publicPath: "/dist/",
   },
   resolve: {
     extensions: [".js"], // if we were using React.js, we would include ".jsx"

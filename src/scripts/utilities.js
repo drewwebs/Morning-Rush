@@ -2,17 +2,17 @@ import { player } from './player.js';
 import { game } from './game.js';
 
 function startAnimating(fps) {
-    fpsInterval = 1000 / fps;
-    then = Date.now();
-    startTime = then;
-    animate();
+    const fpsInterval = 1000 / fps;
+    const then = Date.now();
+    // const startTime = then;
+    animate(fpsInterval, then);
 }
 
-function animate() {
+function animate(fpsInterval, then) {
     requestAnimationFrame(animate);
     
-    now = Date.now();
-    elapsed = now - then;
+    const now = Date.now();
+    const elapsed = now - then;
     
     if (elapsed > fpsInterval) {
         then = now - (elapsed % fpsInterval);
