@@ -28,6 +28,25 @@ function animate() {
     }
 }
 
+document.addEventListener('keydown', function (e) {
+    if (!e.handled) {
+        player.keys[e.code] = true;
+        if (e.code === "Space") player.handleInventory();
+        if (player.keys.Digit1) player.serveGuest(0);
+        if (player.keys.Digit2) player.serveGuest(1);
+        if (player.keys.Digit3) player.serveGuest(2);
+        e.handled = true;
+    }
+});
+
+
+document.addEventListener('keyup', function (e) {
+    delete player.keys[e.code];
+    player.moving = false;
+
+    e.handled = true;
+});
+
 function resetGame() {
     player.x = 300;
     player.y = 350;

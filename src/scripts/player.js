@@ -8,28 +8,6 @@ const ctx6 = canvas6.getContext('2d');
 canvas6.width = 150;
 canvas6.height = 450;
 
-let keys = [];
-
-window.addEventListener('keydown', function (e) {
-
-    if (!e.handled) {
-        if (e.code === "Space") {
-            player.handleInventory();
-        }
-        keys[e.code] = true;
-        e.handled = true;
-    }
-});
-
-
-window.addEventListener('keyup', function (e) {
-    delete keys[e.code];
-    player.moving = false;
-
-    e.handled = true;
-});
-
-
 const items = [
     { name: "Milk", width: 20, height: 20, x: 660, y: 275, icon_url: '/src/images/items/milk-carton.svg'}, 
     { name: "Cup", width: 20, height: 20, x: 400, y: 275, icon_url: '/src/images/items/coffee-mug.svg' },
@@ -52,6 +30,7 @@ import { game } from './game';
 
 class Player {
     constructor() {
+        this.keys = [];
         this.height = 64;
         this.width = 48;
         this.x = 500;
@@ -112,7 +91,7 @@ class Player {
             itemNames.push(item.name);
         });
 
-        guests.forEach( guest => {
+        game.guests.forEach( guest => {
             if (guest.ordered && !(guest.fulfilled || guest.frustrated) && this.inventory[index].name === guest.orderType) {
                 guest.fulfilled = true;
                 game.score += 1;
@@ -162,7 +141,7 @@ class Player {
     update() {
 
         // Handle movements
-        if (keys.ArrowUp) {
+        if (this.keys.ArrowUp) {
             this.moving = true;
             this.frameY = 3;
             if (this.x < 170 && this.y < 350) return;
@@ -171,7 +150,7 @@ class Player {
             }
         }
 
-        if (keys.ArrowDown) {
+        if (this.keys.ArrowDown) {
             this.frameY = 0;
             this.moving = true;
             if (this.y < 425) {
@@ -179,7 +158,7 @@ class Player {
             }
         }
 
-        if (keys.ArrowLeft) {
+        if (this.keys.ArrowLeft) {
             this.frameY = 1;
             this.moving = true;
             if (this.x < 170 && this.y < 350) return;
@@ -188,7 +167,7 @@ class Player {
             }
         }
 
-        if (keys.ArrowRight) {
+        if (this.keys.ArrowRight) {
             this.frameY = 2;
             this.moving = true;
             if (this.x < 650) {
@@ -196,7 +175,7 @@ class Player {
             }
         }
 
-        if (keys.Delete) {
+        if (this.keys.Delete) {
             this.clearInventory();
         }
 
