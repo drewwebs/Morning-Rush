@@ -48,6 +48,8 @@ const upgrades = [
 
 const servingArea = { x: 500, y: 275, width: 100, height: 20 };
 
+import { game } from './game';
+
 class Player {
     constructor() {
         this.height = 64;
@@ -194,14 +196,10 @@ class Player {
             }
         }
 
-        
-        // if (keys.Space) {
-        //     this.handleInventory();
-        // }
-
         if (keys.Delete) {
             this.clearInventory();
         }
+
     }
 
     drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {

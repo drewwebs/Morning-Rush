@@ -1,4 +1,11 @@
+import { game } from './game.js';
+import Bubble from './bubble.js';
+import { cashier } from './cashier';
 
+const canvas3 = document.getElementById('canvas3');
+const ctx3 = canvas3.getContext('2d');
+canvas3.width = 800;
+canvas3.height = 500;
 
 export default class Guest {
     constructor(id, speed, x, y, patience, orderType, spriteImage) {
@@ -99,7 +106,7 @@ export default class Guest {
         
         update() {
             // handle guest collision
-            guests.forEach( guest => {
+            game.guests.forEach( guest => {
                 if (guest.id < this.id) {
                     if (game.collision(this, guest) && this.patience > 0) {
                         this.wait();
@@ -135,7 +142,7 @@ export default class Guest {
                     this.showBubble = false;
                     this.y -= game.speed;
                     if (this.y + this.height < 0) {
-                        guests.splice(guests.indexOf(this), 1);
+                        game.guests.splice(game.guests.indexOf(this), 1);
                     }
                     this.frameY = 3;
                     return;
@@ -145,7 +152,7 @@ export default class Guest {
             // Move bubble over
             if (this.waiting) {
                 let collision = false;
-                guests.forEach(guest => {
+                game.guests.forEach(guest => {
                     if (guest.id < this.id && this.showBubble && guest.showBubble && game.collision(this.bubble, guest.bubble)) {
                         collision = true;
                     }
@@ -162,7 +169,7 @@ export default class Guest {
             if (this.ordered && !this.frustrated) {
                 this.x += this.speed;
                 
-            guests.forEach(guest => {
+            game.guests.forEach(guest => {
                 if (guest.id < this.id) {
                     if (this.showBubble && guest.showBubble && game.collision(this.bubble, guest.bubble)) {
                         this.bubble.y += 1 * game.speed;
@@ -180,7 +187,7 @@ export default class Guest {
         } else if (this.frustrated) {
             this.y -= this.speed;
             if (this.y + this.height < 0) {
-                guests.splice(guests.indexOf(this), 1);
+                game.guests.splice(game.guests.indexOf(this), 1);
             }
         } else {
             this.y += this.speed;
