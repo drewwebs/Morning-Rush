@@ -1,26 +1,30 @@
 import { player } from './player.js';
 import { game } from './game.js';
+import { cashier } from './cashier.js';
+
+var fpsInterval, startTime, now, then, elapsed;
 
 function startAnimating(fps) {
-    const fpsInterval = 1000 / fps;
-    const then = Date.now();
-    // const startTime = then;
-    animate(fpsInterval, then);
+    fpsInterval = 1000 / fps;
+    then = Date.now();
+    startTime = then;
+    animate();
 }
 
-function animate(fpsInterval, then) {
+function animate() {
     requestAnimationFrame(animate);
     
-    const now = Date.now();
-    const elapsed = now - then;
+    now = Date.now();
+    elapsed = now - then;
     
     if (elapsed > fpsInterval) {
+        
         then = now - (elapsed % fpsInterval);
         player.draw();
         player.update();
         cashier.draw();
-        cashier.update();
-        game.handleCustomers();
+        
+        game.handleGuests();
         game.handleScoreboard();
     }
 }
@@ -35,5 +39,5 @@ function resetGame() {
     game.speed = 1;
 }
 
-
+game.initGuests();
 startAnimating(30);

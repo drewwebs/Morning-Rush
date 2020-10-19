@@ -1,12 +1,14 @@
 import { game } from './game.js';
 import Bubble from './bubble.js';
+import { cashier } from './cashier';
 
 const canvas3 = document.getElementById('canvas3');
 const ctx3 = canvas3.getContext('2d');
 canvas3.width = 800;
 canvas3.height = 500;
 
-export default class Customer {
+
+export default class Guest {
     constructor(id, speed, x, y, patience, orderType, spriteImage) {
         this.id = id;
         this.x = x;
@@ -17,8 +19,8 @@ export default class Customer {
         this.frameX = 0;
         this.frameY = 0;
         this.speed = speed;
-        this.customerSprite = new Image();
-        this.customerSprite.src = `src/images/${spriteImage.name}.png`;
+        this.guestSprite = new Image();
+        this.guestSprite.src = `src/images/${spriteImage.name}.png`;
         this.ordered = false;
         this.waiting = false;
         this.fulfilled = false;
@@ -28,7 +30,11 @@ export default class Customer {
         this.showBubble = false;
         this.bubble = false;
     }
-
+    
+    static clear() {
+        ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
+    }
+    
     wait() {
         this.waiting = true;
         this.moving = false;
@@ -80,93 +86,100 @@ export default class Customer {
         }
     }
     
-    handleCustomerFrame() {
+    handleGuestFrame() {
         if (this.frameX < 3 && this.moving) this.frameX++;
         else this.frameX = 0;
     }
     
+
     draw() {
-        ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
         ctx3.drawImage(
-            this.customerSprite,
+            this.guestSprite,
             this.width * this.frameX, this.height * this.frameY,
             this.width, this.height,
             this.x, this.y,
             this.width, this.height
-            );
+        );
             
-            this.handleCustomerFrame();
-            
-            if (this.showBubble) this.bubble.draw();
+        this.handleGuestFrame();
+        
+        if (this.showBubble) this.bubble.draw();
+    }
+        
+    update() {
+        // handle guest collision
+        game.guests.forEach( guest => {
+            if (guest.id < this.id) {
+                if (game.collision(this, guest) && this.patience > 0) {
+                    this.wait();
+                } else {
+                    this.waiting = false;
+                    this.moving = true;
+                    
+                }
+            }
+        });
+        
+        // handle walking down to register
+        if (!this.ordered) {
+            if (!this.waiting && this.x > 126 && this.y > 0) {
+                this.x -= 0.3;
+            } else if (!this.waiting && this.x < 124 && this.y > 0) {
+                this.x += 0.3;
+            }
+            // place order at register
+            if (this.y >= 195) {
+                this.order();
+            }
         }
         
-        update() {
-            // handle customer collision
-            game.customers.forEach( customer => {
-                if (customer.id < this.id) {
-                    if (game.collision(this, customer) && this.patience > 0) {
-                        this.wait();
-                    } else {
-                        this.waiting = false;
-                        this.moving = true;
-                        
+        // wait for order at end of bar
+        if (this.x >= 600 && !this.fulfilled) {
+            this.receiveOrder();
+        }
+        
+        // Move bubble over
+        if (this.waiting) {
+            let collision = false;
+            game.guests.forEach(guest => {
+                if (guest.id < this.id && this.showBubble && guest.showBubble && game.collision(this.bubble, guest.bubble)) {
+                    collision = true;
+                }
+            });
+        
+            if (collision === false &&
+                this.bubble.x + this.bubble.width / 2 < this.x + this.width / 2) {
+                    this.bubble.x += 1;
+            }
+            return;
+        }
+        
+        // walk to end of bar after ordering
+        if (this.ordered && !this.fulfilled) {
+            this.x += this.speed;
+
+            // check for bubble collisions and adjust bubble to compensate
+            game.guests.forEach(guest => {
+                if (guest.id < this.id) {
+                    if (this.showBubble && guest.showBubble && game.collision(this.bubble, guest.bubble)) {
+                        this.bubble.y += this.speed;
+                        this.bubble.x -= this.speed;
                     }
                 }
             });
-            
-            // handle walking down to register
-            if (!this.ordered) {
-                if (!this.waiting && this.x > 126 && this.y > 0) {
-                    this.x -= 0.3;
-                } else if (!this.waiting && this.x < 124 && this.y > 0) {
-                    this.x += 0.3;
-                }
-                // place order at register
-                if (this.y >= 195) {
-                    this.order();
-                }
+
+            // keep bubble from going off the top of the screen
+            if (this.bubble.y >= 20) {
+                this.bubble.y -= this.speed;
             }
-            
-            // wait for order at end of bar
-            if (this.x >= 600 && !this.fulfilled) {
-                this.receiveOrder();
-            }
-            
-            // Move bubble over
-            if (this.waiting) {
-                let collision = false;
-                game.customers.forEach(customer => {
-                    if (customer.id < this.id && this.showBubble && customer.showBubble && game.collision(this.bubble, customer.bubble)) {
-                        collision = true;
-                    }
-                });
-            
-                if (collision === false &&
-                    this.bubble.x + this.bubble.width / 2 < this.x + this.width / 2) {
-                        this.bubble.x += 1;
-                }
-                return;
-            }
-            
-            // walk to end of bar after ordering
-            if (this.ordered && !this.fulfilled) {
-                this.x += this.speed;
-                
-            game.customers.forEach(customer => {
-                if (customer.id < this.id) {
-                    if (this.showBubble && customer.showBubble && game.collision(this.bubble, customer.bubble)) {
-                        this.bubble.y += 1;
-                        this.bubble.x -= 1;
-                    }
-                }
-            });
-            if (this.bubble.y >= 40) {
-                this.bubble.y -= 1;
-            }
+            // Slow bubble down until it is centered about guest's head
             if (this.bubble.x + this.bubble.width / 2 > this.x + this.width / 2) {
-                this.bubble.x -= 0.3333;
+                this.bubble.x -= 0.3333 * this.speed;
             }
-            this.bubble.x += 1;
+
+            // Move bubble to keep pace with guest
+            this.bubble.x += this.speed;
+
         } else if (this.fulfilled) {
             this.y -= this.speed;
         } else {

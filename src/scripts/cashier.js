@@ -1,3 +1,8 @@
+const canvas4 = document.getElementById('canvas4');
+const ctx4 = canvas4.getContext('2d');
+canvas4.width = 800;
+canvas4.height = 500;
+
 class Cashier {
     constructor() {
         this.height = 48;
@@ -12,17 +17,10 @@ class Cashier {
         this.speed = 10;
     }
 
-    drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
-        ctx5.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
-    }
-
-
-    update() {
-      
-    }
 
     draw() {
-        this.drawSprite(
+        ctx4.clearRect(0, 0, canvas4.width, canvas4.height);
+        ctx4.drawImage(
             this.cashierSprite,
             this.width * this.frameX, this.height * this.frameY,
             this.width, this.height,
@@ -37,4 +35,4 @@ class Cashier {
 
 }
 
-const cashier = new Cashier();
+export const cashier = new Cashier();

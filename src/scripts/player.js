@@ -69,8 +69,7 @@ class Player {
             }
         });
 
-        itemNames = [];
-        game.
+        
 
         upgrades.forEach(upgrade => {
             if (game.collision(this, upgrade) && this.inventory[upgrade.reagent]) {

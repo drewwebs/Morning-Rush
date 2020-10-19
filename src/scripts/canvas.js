@@ -9,18 +9,6 @@ background.onload = function() {
 };
 
 
-
-
-
-
-// const canvas4 = document.getElementById('canvas4');
-// const ctx4 = canvas.getContext('2d');
-// canvas4.width = 800;
-// canvas4.height = 500;
-
-
-
-
-
-
 export { ctx1 };
+
+

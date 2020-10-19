@@ -1,7 +1,7 @@
-const canvas2 = document.getElementById('canvas2');
-const ctx2 = canvas2.getContext('2d');
-canvas2.width = 800;
-canvas2.height = 500;
+const canvas7 = document.getElementById('canvas7');
+const ctx7 = canvas7.getContext('2d');
+canvas7.width = 800;
+canvas7.height = 500;
 
 export default class Bubble {
     constructor(x, y, width, height, orderType) {
@@ -12,30 +12,33 @@ export default class Bubble {
         this.orderType = orderType;
     }
 
+    static clear() {
+        ctx7.clearRect(0, 0, canvas7.width, canvas7.height);
+    }
     
     draw() {
         const r = this.x + this.width;
         const b = this.y + this.height;
         const radius = 10;
-        ctx2.beginPath();
-        ctx2.fillStyle = "white";
-        ctx2.fill();
-        ctx2.strokeStyle = "black";
-        ctx2.lineWidth = "1";
-        ctx2.moveTo(this.x + radius, this.y);
+        ctx7.beginPath();
+        ctx7.fillStyle = "white";
+        ctx7.fill();
+        ctx7.strokeStyle = "black";
+        ctx7.lineWidth = "1";
+        ctx7.moveTo(this.x + radius, this.y);
         
-        ctx2.lineTo(r - radius, this.y);
-        ctx2.quadraticCurveTo(r, this.y, r, this.y + radius);
-        ctx2.lineTo(r, this.y + this.height - radius);
-        ctx2.quadraticCurveTo(r, b, r - radius, b);
-        ctx2.lineTo(this.x + radius, b);
-        ctx2.quadraticCurveTo(this.x, b, this.x, b - radius);
-        ctx2.lineTo(this.x, this.y + radius);
-        ctx2.quadraticCurveTo(this.x, this.y, this.x + radius, this.y);
-        ctx2.fill();
-        ctx2.stroke();
-        ctx2.fillStyle = "#000";
-        ctx2.fillText(this.orderType, this.x + 20, this.y + 30);
+        ctx7.lineTo(r - radius, this.y);
+        ctx7.quadraticCurveTo(r, this.y, r, this.y + radius);
+        ctx7.lineTo(r, this.y + this.height - radius);
+        ctx7.quadraticCurveTo(r, b, r - radius, b);
+        ctx7.lineTo(this.x + radius, b);
+        ctx7.quadraticCurveTo(this.x, b, this.x, b - radius);
+        ctx7.lineTo(this.x, this.y + radius);
+        ctx7.quadraticCurveTo(this.x, this.y, this.x + radius, this.y);
+        ctx7.fill();
+        ctx7.stroke();
+        ctx7.fillStyle = "#000";
+        ctx7.fillText(this.orderType, this.x + 20, this.y + 30);
     }
 }
 
