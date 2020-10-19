@@ -1,4 +1,4 @@
-const orderTypes = ["Small coffee", "Small redeye", "Small latte", "Large latte", "Espresso"];
+const orderTypes = ["Hot Coffee", "Redeye", "Latte", "Iced Coffee", "Espresso"];
 
 const sprites = [];
 
@@ -16,29 +16,33 @@ sprites.push({ name: 'barret', width: 160, height: 224 });
 class Game {
     constructor() {
         this.speed = 1;
-        this.numCustomers = 5;
-        this.customerSpacing = 200 / this.speed;
-        this.customerPatience = 500 / this.speed;
+        this.numGuests = 5;
+        this.guestSpacing = 300 / this.speed;
+        this.guestPatience = 500 / this.speed;
         this.numOrders = 0;
         this.lives = 5;
         this.score = 0;
     }
 
-    initCustomers() {
-        for (let i = 0; i < this.numCustomers; i++) {
-            let y = i * -this.customerSpacing;
+    initGuests() {
+        for (let i = 0; i < this.numGuests; i++) {
+            let y = i * -this.guestSpacing;
             let x = 75 + (Math.random() * 100);
             let randomSprite = sprites[sprites.length * Math.random() | 0];
             let randomOrder = orderTypes[orderTypes.length * Math.random() | 0];
-            customers.push(new Customer(i, this.speed, x, y, this.customerPatience, randomOrder, randomSprite));
+            guests.push(new Guest(i, this.speed, x, y, this.guestPatience, randomOrder, randomSprite));
         }
     }
     
     
-    handleCustomers() {
-        for (let i = 0; i < customers.length; i++) {
-            customers[i].update();
-            customers[i].draw();
+    handleGuests() {
+        for (let i = 0; i < guests.length; i++) {
+            guests[i].update();
+            guests[i].draw();
+        }
+
+        if (guests.length === 0) {
+            this.nextLevel();
         }
     }
 
@@ -59,8 +63,9 @@ class Game {
     }
 
     nextLevel() {
-        this.speed *= 1.1;
-        this.numCustomers += 3;
+        this.speed *= 1.2;
+        this.numGuests += 3;
+        this.initGuests();
     }
 
     gameOver() {
@@ -71,4 +76,4 @@ class Game {
 
 const game = new Game();
 
-game.initCustomers();
+game.initGuests();

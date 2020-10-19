@@ -35,7 +35,7 @@ canvas6.width = 150;
 canvas6.height = 450;
 
 
-let customers = [];
+let guests = [];
 let keys = [];
 let score = 0;
 let frame = 0;

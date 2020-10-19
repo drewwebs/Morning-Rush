@@ -20,18 +20,18 @@ function animate() {
         player.update();
         cashier.draw();
         cashier.update();
-        game.handleCustomers();
+        game.handleGuests();
         game.handleScoreboard();
     }
 }
 
 document.addEventListener('keydown', function(e) {
-
     if (!e.handled) {
-        if (e.code === "Space") {
-            player.handleInventory();
-        }
         keys[e.code] = true;
+        if (e.code === "Space") player.handleInventory();
+        if (keys.Digit1) player.serveGuest(0);
+        if (keys.Digit2) player.serveGuest(1);
+        if (keys.Digit3) player.serveGuest(2);
         e.handled = true;
     }
 });

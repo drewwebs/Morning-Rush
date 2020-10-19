@@ -1,6 +1,6 @@
 
 
-class Customer {
+class Guest {
     constructor(id, speed, x, y, patience, orderType, spriteImage) {
         this.id = id;
         this.x = x;
@@ -11,11 +11,11 @@ class Customer {
         this.frameX = 0;
         this.frameY = 0;
         this.speed = speed;
-        this.customerSprite = new Image();
-        this.customerSprite.src = `src/images/${spriteImage.name}.png`;
+        this.guestSprite = new Image();
+        this.guestSprite.src = `src/images/${spriteImage.name}.png`;
         this.ordered = false;
         this.waiting = false;
-        this.fulfilled = false;
+        this.frustrated = false;
         this.timeWaited = 0;
         this.patience = patience;
         this.orderType = orderType;
@@ -55,17 +55,17 @@ class Customer {
         }
     }
     
-    receiveOrder() {
+    waitForOrder() {
         this.wait();
         this.patience -= 1 * game.speed;
-
+        
         
         if (this.patience <= 0) {
             game.lives -= 1;
             if (game.lives === 0) game.gameOver();
             this.timeWaited = 0;
             this.waiting = false;
-            this.fulfilled = true;
+            this.frustrated = true;
             game.speed += 0.1;
             this.frameY = 3;
             this.moving = true;
@@ -74,30 +74,30 @@ class Customer {
         }
     }
     
-    handleCustomerFrame() {
+    handleGuestFrame() {
         if (this.frameX < 3 && this.moving) this.frameX++;
         else this.frameX = 0;
     }
     
     draw() {
         ctx3.drawImage(
-            this.customerSprite,
+            this.guestSprite,
             this.width * this.frameX, this.height * this.frameY,
             this.width, this.height,
             this.x, this.y,
             this.width, this.height
             );
             
-            this.handleCustomerFrame();
+            this.handleGuestFrame();
             
             if (this.showBubble) this.bubble.draw();
         }
         
         update() {
-            // handle customer collision
-            customers.forEach( customer => {
-                if (customer.id < this.id) {
-                    if (game.collision(this, customer) && this.patience > 0) {
+            // handle guest collision
+            guests.forEach( guest => {
+                if (guest.id < this.id) {
+                    if (game.collision(this, guest) && this.patience > 0) {
                         this.wait();
                     } else {
                         this.waiting = false;
@@ -120,48 +120,64 @@ class Customer {
                 }
             }
             
+
             // wait for order at end of bar
-            if (this.x >= 600 && !this.fulfilled) {
-                this.receiveOrder();
+
+            if (this.x >= 600) {
+                if (!this.frustrated && !this.fulfilled) {
+                    this.waitForOrder();
+                } else if (this.fulfilled) {
+                    this.waiting = false;
+                    this.showBubble = false;
+                    this.y -= game.speed;
+                    if (this.y + this.height < 0) {
+                        guests.splice(guests.indexOf(this), 1);
+                    }
+                    this.frameY = 3;
+                    return;
+                }
             }
             
             // Move bubble over
             if (this.waiting) {
                 let collision = false;
-                customers.forEach(customer => {
-                    if (customer.id < this.id && this.showBubble && customer.showBubble && game.collision(this.bubble, customer.bubble)) {
+                guests.forEach(guest => {
+                    if (guest.id < this.id && this.showBubble && guest.showBubble && game.collision(this.bubble, guest.bubble)) {
                         collision = true;
                     }
                 });
             
                 if (collision === false &&
                     this.bubble.x + this.bubble.width / 2 < this.x + this.width / 2) {
-                        this.bubble.x += 1;
+                        this.bubble.x += 1 * game.speed;
                 }
                 return;
             }
             
             // walk to end of bar after ordering
-            if (this.ordered && !this.fulfilled) {
+            if (this.ordered && !this.frustrated) {
                 this.x += this.speed;
                 
-            customers.forEach(customer => {
-                if (customer.id < this.id) {
-                    if (this.showBubble && customer.showBubble && game.collision(this.bubble, customer.bubble)) {
-                        this.bubble.y += 1;
-                        this.bubble.x -= 1;
+            guests.forEach(guest => {
+                if (guest.id < this.id) {
+                    if (this.showBubble && guest.showBubble && game.collision(this.bubble, guest.bubble)) {
+                        this.bubble.y += 1 * game.speed;
+                        this.bubble.x -= 1 * game.speed;
                     }
                 }
             });
             if (this.bubble.y >= 40) {
-                this.bubble.y -= 1;
+                this.bubble.y -= 1 * game.speed;
             }
             if (this.bubble.x + this.bubble.width / 2 > this.x + this.width / 2) {
                 this.bubble.x -= 0.3333;
             }
-            this.bubble.x += 1;
-        } else if (this.fulfilled) {
+            this.bubble.x += 1 * game.speed;
+        } else if (this.frustrated) {
             this.y -= this.speed;
+            if (this.y + this.height < 0) {
+                guests.splice(guests.indexOf(this), 1);
+            }
         } else {
             this.y += this.speed;
         }
