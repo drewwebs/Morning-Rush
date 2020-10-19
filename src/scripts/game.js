@@ -89,3 +89,4 @@ class Game {
 export const game = new Game();
 
 
+game.initGuests();

@@ -23,14 +23,10 @@ function animate() {
         player.draw();
         player.update();
         cashier.draw();
-        
         game.handleGuests();
         game.handleScoreboard();
     }
 }
-
-
-
 
 function resetGame() {
     player.x = 300;

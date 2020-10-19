@@ -8,6 +8,7 @@ const ctx6 = canvas6.getContext('2d');
 canvas6.width = 150;
 canvas6.height = 450;
 
+let keys = [];
 
 window.addEventListener('keydown', function (e) {
 
@@ -28,7 +29,6 @@ window.addEventListener('keyup', function (e) {
     e.handled = true;
 });
 
-let keys = [];
 
 const items = [
     { name: "Milk", width: 20, height: 20, x: 660, y: 275, icon_url: '/src/images/items/milk-carton.svg'}, 
@@ -41,9 +41,12 @@ const upgrades = [
     { name: "Hot Coffee", width: 20, height: 20, x: 320, y: 425, reagent: "Cup", icon_url: '/src/images/items/hot-coffee.svg'},
     { name: "Iced Coffee", width: 20, height: 20, x: 400, y: 425, reagent: "Hot Coffee", icon_url: '/src/images/items/iced-coffee.svg' },
     { name: "Espresso", width: 20, height: 20, x: 320, y: 275, reagent: "Cup", icon_url: '/src/images/items/hot-espresso.svg' },
-    // { name: "Cup of Coffee", width: 20, height: 20, x: 320, y: 425, reagent: "Cup", icon_url: '/src/images/items/' },
-    
+    { name: "Redeye", width: 20, height: 20, x: 320, y: 275, reagent: "Hot Coffee", icon_url: '/src/images/items/redeye.svg' },
+    { name: "Latte", width: 20, height: 20, x: 320, y: 275, reagent: "Steamed Milk", icon_url: '/src/images/items/latte.svg'},
+    { name: "Iced Latte", width: 20, height: 20, x: 400, y: 425, reagent: "Latte", icon_url: '/src/images/items/iced-latte.svg' },    
 ];
+
+const servingArea = { x: 500, y: 275, width: 100, height: 20 };
 
 class Player {
     constructor() {
@@ -69,11 +72,16 @@ class Player {
             }
         });
 
-        
+        let itemNames = [];
+        this.inventory.forEach( item => {
+            itemNames.push(item.name);
+        });
 
         upgrades.forEach(upgrade => {
-            if (game.collision(this, upgrade) && this.inventory[upgrade.reagent]) {
-                delete this.inventory[upgrade.reagent];
+            // 
+            if (game.collision(this, upgrade) && itemNames.includes(upgrade.reagent)) {
+                // 
+                this.inventory.splice(itemNames.indexOf(upgrade.reagent), 1);
                 this.addItemToInventory(upgrade);
             }
         });
@@ -96,6 +104,21 @@ class Player {
         });
     }
 
+    serveGuest(index) {
+        let itemNames = [];
+        this.inventory.forEach(item => {
+            itemNames.push(item.name);
+        });
+
+        guests.forEach( guest => {
+            if (guest.ordered && !(guest.fulfilled || guest.frustrated) && this.inventory[index].name === guest.orderType) {
+                guest.fulfilled = true;
+                game.score += 1;
+                this.inventory.splice(itemNames.indexOf(guest.orderType), 1);
+                return;
+            }
+        });
+    }
 
     // handleInventory() {
     //     items.forEach( item => {
