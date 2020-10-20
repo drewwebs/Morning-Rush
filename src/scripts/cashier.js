@@ -13,7 +13,7 @@ class Cashier {
         this.frameX = 0;
         this.frameY = 3;
         this.cashierSprite = new Image();
-        this.cashierSprite.src = 'src/images/L.png';
+        this.cashierSprite.src = 'src/images/lightyagami.png';
         this.speed = 10;
     }
 

@@ -30,6 +30,7 @@ const upgrades = [
 
 
 import { game } from './game';
+import { grinder } from './grinder';
 
 class Player {
     constructor() {
@@ -52,7 +53,6 @@ class Player {
         let addedItem = "";
         items.forEach(item => {
             if (game.collision(this, item) && this.frameY === item.frameDir) {
-                if (this.inventory.length >= 3) this.inventory.pop(); 
                 this.addItemToInventory(item);
                 addedItem = item;
             }
@@ -70,16 +70,18 @@ class Player {
                 let upgradeable = true;
                 upgrade.reagents.forEach(reagent => {
                     if (!itemNames.includes(reagent)) {
-                        
                         upgradeable = false;
                         return;
                     }
                 });
-                if (upgradeable) this.addItemToInventory(upgrade, itemNames, addedItem);
+                if (upgradeable) {
+                    this.addItemToInventory(upgrade, itemNames, addedItem);
+                    if (upgrade.name === "Ground Espresso") grinder.grinding = 100;
+                }
             }
         });
 
-        // if (upgradeable) return;
+        if (this.inventory.length > 3) this.inventory.pop(); 
 
 
     }
@@ -193,10 +195,10 @@ class Player {
             this.width, this.height, 
             this.x, this.y, 
             this.width, this.height
-            );
-            
-            this.handlePlayerFrame();
-            this.renderItems();
+        );
+        
+        this.handlePlayerFrame();
+        this.renderItems();
     }
         
 

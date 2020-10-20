@@ -16,10 +16,13 @@ sprites.push({ name: 'death_scythe', width: 200, height: 192 });
 sprites.push({ name: 'crowley_wings', width: 192, height: 192 });
 sprites.push({ name: 'jawa', width: 128, height: 192 });
 sprites.push({ name: 'barret', width: 160, height: 224 });
-// sprites.push({ name: , width: , height: });
-// sprites.push({ name: , width: , height: });
-// sprites.push({ name: , width: , height: });
-// sprites.push({ name: , width: , height: });
+sprites.push({ name: 'bahamut', width: 384, height: 384});
+sprites.push({ name: 'L', width: 128, height: 192});
+sprites.push({ name: 'ironman', width: 128, height: 192});
+sprites.push({ name: 'mandalorian', width: 128, height: 192});
+sprites.push({ name: 'yoda', width: 128, height: 192});
+sprites.push({ name: 'astromechdroid', width: 108, height: 104});
+sprites.push({ name: 'aziraphale_wings', width: 192, height: 192});
 
 class Game {
     constructor() {

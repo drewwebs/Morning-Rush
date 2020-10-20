@@ -1,8 +1,10 @@
 import { player } from './player.js';
 import { game } from './game.js';
 import { cashier } from './cashier.js';
+import { grinder } from './grinder.js';
 
 const servingArea = { x: 600 , y: 275, width: 100, height: 20 };
+let gameStarted = false;
 
 window.addEventListener("load", () => {
     var fpsInterval, startTime, now, then, elapsed;
@@ -28,6 +30,7 @@ window.addEventListener("load", () => {
             cashier.draw();
             game.handleGuests();
             game.handleScoreboard();
+            grinder.draw();
         }
     }
 
@@ -37,6 +40,10 @@ window.addEventListener("load", () => {
         if (player.keys.Digit1 && game.collision(player, servingArea)) player.serveGuest(0);
         if (player.keys.Digit2 && game.collision(player, servingArea)) player.serveGuest(1);
         if (player.keys.Digit3 && game.collision(player, servingArea)) player.serveGuest(2);
+        if (e.code === "Enter" && gameStarted === false) {
+            gameStarted = true;
+            startGame();
+        }
     });
 
 
@@ -54,6 +61,8 @@ window.addEventListener("load", () => {
         game.speed = 1;
     }
 
-    game.initGuests();
-    startAnimating(30);
+    function startGame() {
+        game.initGuests();
+        startAnimating(30);
+    }
 });

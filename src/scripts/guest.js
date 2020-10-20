@@ -10,10 +10,10 @@ canvas3.height = 500;
 export default class Guest {
     constructor(id, speed, x, y, patience, orderType, spriteImage) {
         this.id = id;
-        this.x = x;
-        this.y = y;
         this.width = spriteImage.width / 4;
         this.height = spriteImage.height / 4;
+        this.x = x;
+        this.y = y;
         this.moving = true;
         this.frameX = 0;
         this.frameY = 0;
