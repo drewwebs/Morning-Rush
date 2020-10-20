@@ -73,7 +73,9 @@ export default class Guest {
         
         if (this.patience <= 0) {
             game.lives -= 1;
-            if (game.lives === 0) game.gameOver();
+            if (game.lives === 0) {
+                game.over = true;
+            }
             this.timeWaited = 0;
             this.waiting = false;
             this.frustrated = true;
@@ -120,13 +122,13 @@ export default class Guest {
             
             // handle walking down to register
             if (!this.ordered) {
-                if (!this.waiting && this.x > 126 && this.y > 0) {
+                if (!this.waiting && this.x > 144 && this.y > 0) {
                     this.x -= 0.3;
-                } else if (!this.waiting && this.x < 124 && this.y > 0) {
+                } else if (!this.waiting && this.x < 142 && this.y > 0) {
                     this.x += 0.3;
                 }
                 // place order at register
-                if (this.y >= 195) {
+                if (this.y >= 185) {
                     this.order();
                 }
             }

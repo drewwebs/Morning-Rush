@@ -7,7 +7,7 @@ class Cashier {
     constructor() {
         this.height = 48;
         this.width = 32;
-        this.x = 125;
+        this.x = 143;
         this.y = 290;
         this.moving = false;
         this.frameX = 0;

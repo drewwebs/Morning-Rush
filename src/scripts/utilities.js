@@ -2,6 +2,8 @@ import { player } from './player.js';
 import { game } from './game.js';
 import { cashier } from './cashier.js';
 
+const servingArea = { x: 600 , y: 275, width: 100, height: 20 };
+
 window.addEventListener("load", () => {
     var fpsInterval, startTime, now, then, elapsed;
 
@@ -18,7 +20,7 @@ window.addEventListener("load", () => {
         now = Date.now();
         elapsed = now - then;
         
-        if (elapsed > fpsInterval) {
+        if (elapsed > fpsInterval && !game.over) {
             
             then = now - (elapsed % fpsInterval);
             player.draw();
@@ -30,14 +32,11 @@ window.addEventListener("load", () => {
     }
 
     document.addEventListener('keydown', function (e) {
-        if (!e.handled) {
-            player.keys[e.code] = true;
-            if (e.code === "Space") player.handleInventory();
-            if (player.keys.Digit1) player.serveGuest(0);
-            if (player.keys.Digit2) player.serveGuest(1);
-            if (player.keys.Digit3) player.serveGuest(2);
-            e.handled = true;
-        }
+        player.keys[e.code] = true;
+        if (e.code === "Space") player.handleInventory();
+        if (player.keys.Digit1 && game.collision(player, servingArea)) player.serveGuest(0);
+        if (player.keys.Digit2 && game.collision(player, servingArea)) player.serveGuest(1);
+        if (player.keys.Digit3 && game.collision(player, servingArea)) player.serveGuest(2);
     });
 
 

@@ -10,22 +10,24 @@ canvas6.width = 150;
 canvas6.height = 450;
 
 const items = [
-    { name: "Milk", width: 20, height: 20, x: 660, y: 275, icon_url: './src/images/items/milk-carton.svg'}, 
-    { name: "Cup", width: 20, height: 20, x: 400, y: 275, icon_url: './src/images/items/coffee-mug.svg' },
-    { name: "Ice", width: 20, height: 20, x: 400, y: 425, icon_url: './src/images/items/ice-cube.svg' }
+    { name: "Milk", width: 10, height: 20, x: 680, y: 325, frameDir: 2, icon_url: './src/images/items/milk-carton.svg'}, 
+    { name: "Cup", width: 10, height: 20, x: 260, y: 275, frameDir: 3, icon_url: './src/images/items/coffee-mug.svg' },
+    // { name: "Ice", width: 40, height: 20, x: 460, y: 355, frameDir: 0, icon_url: './src/images/items/ice-cube.svg' },
+    { name: "Portafilter", width: 100, height: 20, x: 490, y: 275, frameDir: 3, icon_url: './src/images/items/iced-coffee.svg'}
 ];
 
 const upgrades = [
-    { name: "Steamed Milk", width: 20, height: 20, x: 270, y: 275, reagent: "Milk", icon_url: './src/images/items/red-milk-carton.svg'},
-    { name: "Hot Coffee", width: 20, height: 20, x: 320, y: 425, reagent: "Cup", icon_url: './src/images/items/hot-coffee.svg'},
-    { name: "Iced Coffee", width: 20, height: 20, x: 400, y: 425, reagent: "Hot Coffee", icon_url: './src/images/items/iced-coffee.svg' },
-    { name: "Espresso", width: 20, height: 20, x: 320, y: 275, reagent: "Cup", icon_url: './src/images/items/hot-espresso.svg' },
-    { name: "Redeye", width: 20, height: 20, x: 320, y: 275, reagent: "Hot Coffee", icon_url: './src/images/items/redeye.svg' },
-    { name: "Latte", width: 20, height: 20, x: 320, y: 275, reagent: "Steamed Milk", icon_url: './src/images/items/latte.svg'},
-    { name: "Iced Latte", width: 20, height: 20, x: 400, y: 425, reagent: "Latte", icon_url: './src/images/items/iced-latte.svg' },    
+    { name: "Steamed Milk", width: 10, height: 20, x: 470, y: 275, reagents: ["Milk"], frameDir: 3, icon_url: './src/images/items/red-milk-carton.svg'},
+    { name: "Hot Coffee", width: 40, height: 20, x: 260, y: 355, reagents: ["Cup"], frameDir: 0, icon_url: './src/images/items/hot-coffee.svg'},
+    { name: "Iced Coffee", width: 40, height: 20, x: 460, y: 355, reagents: ["Hot Coffee"], frameDir: 0, icon_url: './src/images/items/iced-coffee.svg' },
+    { name: "Ground Espresso", width: 1, height: 20, x: 370, y: 275, reagents: ["Portafilter"], frameDir: 3, icon_url: './src/images/items/redeye.svg'},
+    { name: "Espresso", width: 100, height: 20, x: 490, y: 275, reagents: ["Cup", "Ground Espresso"], frameDir: 3, icon_url: './src/images/items/hot-espresso.svg' },
+    { name: "Redeye", width: 70, height: 20, x: 490, y: 275, reagents: ["Hot Coffee", "Ground Espresso"], frameDir: 3, icon_url: './src/images/items/redeye.svg' },
+    { name: "Latte", width: 20, height: 20, x: 470, y: 275, reagents: ["Cup", "Steamed Milk", "Ground Espresso"], frameDir: 3, icon_url: './src/images/items/latte.svg'},
+    { name: "Iced Latte", width: 20, height: 20, x: 400, y: 355, reagents: ["Latte"], frameDir: 0, icon_url: './src/images/items/iced-latte.svg' },    
 ];
 
-const servingArea = { x: 500, y: 275, width: 100, height: 20 };
+
 
 import { game } from './game';
 
@@ -47,12 +49,15 @@ class Player {
 
 
     handleInventory() {
+        let addedItem = "";
         items.forEach(item => {
-            if (game.collision(this, item)) {
+            if (game.collision(this, item) && this.frameY === item.frameDir) {
                 if (this.inventory.length >= 3) this.inventory.pop(); 
                 this.addItemToInventory(item);
+                addedItem = item;
             }
         });
+
 
         let itemNames = [];
         this.inventory.forEach( item => {
@@ -60,19 +65,43 @@ class Player {
         });
 
         upgrades.forEach(upgrade => {
-            // 
-            if (game.collision(this, upgrade) && itemNames.includes(upgrade.reagent)) {
-                // 
-                this.inventory.splice(itemNames.indexOf(upgrade.reagent), 1);
-                this.addItemToInventory(upgrade);
+            if (game.collision(this, upgrade) && this.frameY === upgrade.frameDir) {
+                
+                let upgradeable = true;
+                upgrade.reagents.forEach(reagent => {
+                    if (!itemNames.includes(reagent)) {
+                        
+                        upgradeable = false;
+                        return;
+                    }
+                });
+                if (upgradeable) this.addItemToInventory(upgrade, itemNames, addedItem);
             }
         });
+
+        // if (upgradeable) return;
+
+
     }
 
-    addItemToInventory(item) {
-        item.icon = new Image();
-        item.icon.src = item.icon_url;
-        this.inventory.unshift(item);
+
+    addItemToInventory(object, itemNames, addedItem) {
+        if (object.reagents) {
+            object.reagents.forEach( reagent => {
+                
+                this.inventory.splice(itemNames.indexOf(reagent), 1);
+            });
+        }
+
+        object.icon = new Image();
+        object.icon.src = object.icon_url;
+        this.inventory.unshift(object);
+
+        if (object.reagents) { 
+            this.inventory.forEach( (item, i) => {
+                if (item === addedItem) this.inventory.splice(i, 1);
+            });
+        }
     }
 
     clearInventory() {
@@ -102,42 +131,6 @@ class Player {
         });
     }
 
-    // handleInventory() {
-    //     items.forEach( item => {
-    //         if (game.collision(this, item)) {
-    //             this.addItemToInventory(item);
-    //         }
-    //     });
-
-    //     upgrades.forEach( upgrade => {
-    //         if (game.collision(this, upgrade) && this.inventory[upgrade.reagent]) {
-    //             delete this.inventory[upgrade.reagent];
-    //             this.addItemToInventory(upgrade);
-    //         }
-    //     }); 
-    // }
-
-    // addItemToInventory(item) {
-    //     this.inventory[item.name] = item;
-    //     this.inventory[item.name].icon = new Image();
-    //     this.inventory[item.name].icon.src = item.icon_url;
-    // }
-
-
-    // clearInventory() {
-    //     Object.keys(this.inventory).forEach (key => { delete this.inventory[key]});
-    // }
-
-
-    // renderItems() {
-    //     Object.keys(this.inventory).forEach ((key, i) => { 
-    //         ctx6.drawImage(this.inventory[key].icon, 10, 10 + 150 * i, 125, 125);
-    //     });
-    // }
-
-
-
-
     
     update() {
 
@@ -154,7 +147,7 @@ class Player {
         if (this.keys.ArrowDown) {
             this.frameY = 0;
             this.moving = true;
-            if (this.y < 425) {
+            if (this.y < 350) {
                 this.y += this.speed;
             }
         }

@@ -31,12 +31,13 @@ class Game {
         this.numOrders = 0;
         this.lives = 5;
         this.score = 0;
+        this.over = false;
     }
 
     initGuests() {
         for (let i = 0; i < this.numGuests; i++) {
             let y = i * -this.guestSpacing;
-            let x = 75 + (Math.random() * 100);
+            let x = 105;
             let randomSprite = sprites[sprites.length * Math.random() | 0];
             let randomOrder = orderTypes[orderTypes.length * Math.random() | 0];
             this.guests.push(new Guest(i, this.speed, x, y, this.guestPatience, randomOrder, randomSprite));
@@ -47,13 +48,13 @@ class Game {
     handleGuests() {
         Guest.clear();
         Bubble.clear();
+        if (this.guests.length === 0) {
+            this.nextLevel();
+        }
+
         for (let i = 0; i < this.guests.length; i++) {
             this.guests[i].update();
             this.guests[i].draw();
-        }
-
-        if (this.guests.length === 0) {
-            this.nextLevel();
         }
     }
 
@@ -80,8 +81,19 @@ class Game {
         this.initGuests();
     }
 
+    // drawStartMenu() {
+    //     ctx2.fillStyle = "black";
+    //     ctx2.font = "bold 28pt roboto";
+    //     ctx2.fillText(`Warm yourself up at Shinigami Cafe!`, 325, 130);
+
+    //     ctx2.fillStyle = "black";
+    //     ctx2.font = "bold 18pt roboto";
+    //     ctx2.fillText(`Press 'Enter' to begin`, 275, 180);
+    // }
+
     gameOver() {
-        console.log("YOU LOSE");
+        game.guests = [];
+        game.speed = 0;
     }
 
 }
