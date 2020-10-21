@@ -150,6 +150,7 @@ window.addEventListener("load", () => {
         if (player.keys.Digit2 && game.collision(player, servingArea)) player.serveGuest(1);
         if (player.keys.Digit3 && game.collision(player, servingArea)) player.serveGuest(2);
         if (e.code === "Enter" && gameStarted === false) {
+            document.querySelector("#start-screen").style.display = "none";
             gameStarted = true;
             startGame();
         }

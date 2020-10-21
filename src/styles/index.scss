@@ -1,15 +1,12 @@
-// MIXINS && VARIABLES
 
-@font-face {
-    font-family: 'retro_computer';
-    src: url('/src/styles/retro_computer_personal_use.ttf');
-}
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 $main-color: rgb(42, 165, 165);
 $accent-color: darken($main-color, 20%);
 $background-color: lighten($main-color, 40%);
 
-// LAYOUT
+
 
 body {
   background-color: $background-color;
@@ -86,7 +83,8 @@ body {
   left: calc(50% - 575px);
   transform: translate(-50%, -50%);
   background: white;
-  font-family: retro_computer;
+  font-size: 14px;
+  font-family: 'Press Start 2P';
 
   & ul {
     padding: 10px;
@@ -100,4 +98,39 @@ body {
     line-height: 1.5;
 
   }
+}
+
+#start-screen {
+  width: 800px;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background:rgba(0,0,0,.9);
+  font-size: 14px;
+  font-family: 'Press Start 2P';
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  & .title {
+    font-size: 20px;
+    padding: 20px;
+  }
+
+  & .description {
+    padding: 20px;
+    line-height: 1.5;
+  }
+
+  & .how-to-start {
+    padding: 20px;
+  }
+}
+
+.hidden {
+  display: none;
 }
