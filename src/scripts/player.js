@@ -57,7 +57,7 @@ class Player {
                     }
                 });
                 if (upgradeable) {
-                    this.addItemToInventory(upgrade, itemNames, addedItem);
+                    this.addItemToInventory(upgrade, addedItem);
                     if (upgrade.name === "Ground Espresso") grinder.grinding = 100;
                 }
             }
@@ -69,11 +69,22 @@ class Player {
     }
 
 
-    addItemToInventory(object, itemNames, addedItem) {
+    addItemToInventory(object, addedItem) {
         if (object.reagents) {
-            object.reagents.forEach( reagent => {
-                this.inventory.splice(itemNames.indexOf(reagent), 1);
-            });
+            const reagents = [...object.reagents]; 
+            let cleared = false;
+            while (cleared === false) {
+                cleared = true;
+                this.inventory.forEach( (item, i) =>  {
+                    reagents.forEach( (reagent, j) => {
+                        if (item.name === reagent) {
+                            this.inventory.splice(i, 1);
+                            reagents.splice(j, 1);
+                            cleared = false;
+                        }
+                    });
+                });
+            }
         }
 
         object.icon = new Image();
