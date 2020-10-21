@@ -1,19 +1,19 @@
-# Morning Rush
+# Shinigami Cafe
 
-Morning rush will be a tower defense/coffee bar simulator hybrid.
+Shinigami cafe puts the user in the shoes of Ryuk, a god of death, trying to put his boredom to rest by serving guests at a busy coffee shop.  
 
 ## Description
-Customers will flow into the shop and place orders for espresso drinks, which you will be expected to get out to them in 30 seconds.  Each successful drink prepared with award 1 point, while each failure will cost a life.  You will have 5 lives each game.
+Guests order drinks and walk down to the end of the bar to wait.  If you can't craft their drink and deliver it in time, they run out of patience, become frustrated, and leave.  5 frustrated guests and your game is over!
 
 ## Functionality
 
- - Morning Rush will feature an order queue on the left, which will show you which orders you have yet to complete.
- - Users will be able to click on different elements of the bar to create drink components (click on milk to pour milk, click on grinder to grind espresso, click on grouphead to pull a shot, click on steam wand to steam milk).  All of these will be required to be completed in the correct order to produce a drink.
+ - Guests' orders will follow them along the top of the screen, which will show you which orders you have yet to complete.
+ - Users can interact with different elements of the shop to create drink components.  They can then combine components in order to create drinks.
 
 ## Wireframes
 
  - Morning Rush will be a single screen app with a view of a grinder and espresso machine.
- ![Morning Rush Wireframe](https://i.imgur.com/cNkVcKD.png)
+ ![Morning Rush Wireframe](https://i.imgur.com/ePwCZaA.png)
  
 ## Technologies
  Morning Rush will use the following technologies:
@@ -30,3 +30,9 @@ Customers will flow into the shop and place orders for espresso drinks, which yo
 ## Bonus Features
   - Add global high score tracking
   - Add decaf option and extra toppers for orders
+
+
+** Iced coffee and hot coffee icon made by Freepik from www.flaticon.com
+** Latte icon made by Smashicons from www.flaticon.com
+** Iced latte icon made by Nhor Phai from www.flaticon.com
+** All other icons sourced from www.thenounproject.com
