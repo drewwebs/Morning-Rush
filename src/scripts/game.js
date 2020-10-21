@@ -1,28 +1,13 @@
 import Bubble from './bubble';
 import Guest from './guest';
+import { orderTypes, sprites } from './utilities';
 
 const canvas2 = document.getElementById('canvas2');
 const ctx2 = canvas2.getContext('2d');
 canvas2.width = 800;
 canvas2.height = 500;
 
-const orderTypes = ["Hot Coffee", "Redeye", "Latte", "Iced Coffee", "Espresso"];
 
-const sprites = [];
-
-sprites.push({ name: 'deadpool', width: 128, height: 192 });
-sprites.push({ name: 'newton', width: 128, height: 192 });
-sprites.push({ name: 'death_scythe', width: 200, height: 192 });
-sprites.push({ name: 'crowley_wings', width: 192, height: 192 });
-sprites.push({ name: 'jawa', width: 128, height: 192 });
-sprites.push({ name: 'barret', width: 160, height: 224 });
-sprites.push({ name: 'bahamut', width: 384, height: 384});
-sprites.push({ name: 'L', width: 128, height: 192});
-sprites.push({ name: 'ironman', width: 128, height: 192});
-sprites.push({ name: 'mandalorian', width: 128, height: 192});
-sprites.push({ name: 'yoda', width: 128, height: 192});
-sprites.push({ name: 'astromechdroid', width: 108, height: 104});
-sprites.push({ name: 'aziraphale_wings', width: 192, height: 192});
 
 class Game {
     constructor() {

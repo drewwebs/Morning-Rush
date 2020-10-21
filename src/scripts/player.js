@@ -9,28 +9,10 @@ const ctx6 = canvas6.getContext('2d');
 canvas6.width = 150;
 canvas6.height = 450;
 
-const items = [
-    { name: "Milk", width: 10, height: 20, x: 680, y: 325, frameDir: 2, icon_url: './src/images/items/milk-carton.svg'}, 
-    { name: "Cup", width: 10, height: 20, x: 260, y: 275, frameDir: 3, icon_url: './src/images/items/coffee-mug.svg' },
-    // { name: "Ice", width: 40, height: 20, x: 460, y: 355, frameDir: 0, icon_url: './src/images/items/ice-cube.svg' },
-    { name: "Portafilter", width: 100, height: 20, x: 490, y: 275, frameDir: 3, icon_url: './src/images/items/iced-coffee.svg'}
-];
-
-const upgrades = [
-    { name: "Steamed Milk", width: 10, height: 20, x: 470, y: 275, reagents: ["Milk"], frameDir: 3, icon_url: './src/images/items/red-milk-carton.svg'},
-    { name: "Hot Coffee", width: 40, height: 20, x: 260, y: 355, reagents: ["Cup"], frameDir: 0, icon_url: './src/images/items/hot-coffee.svg'},
-    { name: "Iced Coffee", width: 40, height: 20, x: 460, y: 355, reagents: ["Hot Coffee"], frameDir: 0, icon_url: './src/images/items/iced-coffee.svg' },
-    { name: "Ground Espresso", width: 1, height: 20, x: 370, y: 275, reagents: ["Portafilter"], frameDir: 3, icon_url: './src/images/items/redeye.svg'},
-    { name: "Espresso", width: 100, height: 20, x: 490, y: 275, reagents: ["Cup", "Ground Espresso"], frameDir: 3, icon_url: './src/images/items/hot-espresso.svg' },
-    { name: "Redeye", width: 70, height: 20, x: 490, y: 275, reagents: ["Hot Coffee", "Ground Espresso"], frameDir: 3, icon_url: './src/images/items/redeye.svg' },
-    { name: "Latte", width: 20, height: 20, x: 470, y: 275, reagents: ["Cup", "Steamed Milk", "Ground Espresso"], frameDir: 3, icon_url: './src/images/items/latte.svg'},
-    { name: "Iced Latte", width: 20, height: 20, x: 400, y: 355, reagents: ["Latte"], frameDir: 0, icon_url: './src/images/items/iced-latte.svg' },    
-];
-
-
 
 import { game } from './game';
 import { grinder } from './grinder';
+import { items, upgrades } from './utilities';
 
 class Player {
     constructor() {
@@ -90,7 +72,6 @@ class Player {
     addItemToInventory(object, itemNames, addedItem) {
         if (object.reagents) {
             object.reagents.forEach( reagent => {
-                
                 this.inventory.splice(itemNames.indexOf(reagent), 1);
             });
         }

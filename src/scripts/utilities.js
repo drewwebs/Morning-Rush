@@ -3,6 +3,115 @@ import { game } from './game.js';
 import { cashier } from './cashier.js';
 import { grinder } from './grinder.js';
 
+export const orderTypes = ["Hot Coffee", "Redeye", "Latte", "Iced Coffee", "Espresso"];
+
+export const sprites = [
+    { name: 'deadpool', width: 128, height: 192 },
+    { name: 'newton', width: 128, height: 192 },
+    { name: 'death_scythe', width: 200, height: 192 },
+    { name: 'crowley_wings', width: 192, height: 192 },
+    { name: 'jawa', width: 128, height: 192 },
+    { name: 'barret', width: 160, height: 224 },
+    { name: 'L', width: 128, height: 192 },
+    { name: 'ironman', width: 128, height: 192 },
+    { name: 'mandalorian', width: 128, height: 192 },
+    { name: 'yoda', width: 128, height: 192 },
+    { name: 'astromechdroid', width: 108, height: 104 },
+    { name: 'aziraphale_wings', width: 192, height: 192 }
+];
+
+
+export const items = [
+    {
+        name: "Milk",
+        width: 10, height: 20, x: 680, y: 325,
+        frameDir: 2,
+        icon_url: './src/images/items/milk.svg'
+    },
+
+    {
+        name: "Cup",
+        width: 10, height: 20, x: 260, y: 275,
+        frameDir: 3,
+        icon_url: './src/images/items/coffee-cup.svg'
+    },
+
+    {
+        name: "Portafilter",
+        width: 100, height: 20, x: 490, y: 275,
+        frameDir: 3,
+        icon_url: './src/images/items/portafilter.svg'
+    }
+
+];
+
+export const upgrades = [
+    {
+        name: "Steamed Milk",
+        width: 10, height: 20, x: 470, y: 275,
+        reagents: ["Milk"],
+        frameDir: 3,
+        icon_url: './src/images/items/red-milk-carton.svg'
+    },
+
+    {
+        name: "Hot Coffee",
+        width: 40, height: 20, x: 260, y: 355,
+        reagents: ["Cup"],
+        frameDir: 0,
+        icon_url: './src/images/items/hot-coffee.png'
+    },
+
+    {
+        name: "Iced Coffee",
+        width: 40, height: 20, x: 460, y: 355,
+        reagents: ["Hot Coffee"],
+        frameDir: 0,
+        icon_url: './src/images/items/iced-coffee.svg'
+    },
+
+    {
+        name: "Ground Espresso",
+        width: 1, height: 20, x: 370, y: 275,
+        reagents: ["Portafilter"],
+        frameDir: 3,
+        icon_url: './src/images/items/full-portafilter.svg'
+    },
+
+    {
+        name: "Espresso",
+        width: 100, height: 20, x: 490, y: 275,
+        reagents: ["Cup", "Ground Espresso"],
+        frameDir: 3,
+        icon_url: './src/images/items/hot-espresso.svg'
+    },
+
+    {
+        name: "Redeye",
+        width: 100, height: 20, x: 490, y: 275,
+        reagents: ["Hot Coffee", "Ground Espresso"],
+        frameDir: 3,
+        icon_url: './src/images/items/redeye.svg'
+    },
+
+    {
+        name: "Latte",
+        width: 100, height: 20, x: 490, y: 275,
+        reagents: ["Steamed Milk", "Espresso"],
+        frameDir: 3,
+        icon_url: './src/images/items/latte.svg'
+    },
+
+    {
+        name: "Iced Latte",
+        width: 20, height: 20, x: 400, y: 355,
+        reagents: ["Latte"],
+        frameDir: 0,
+        icon_url: './src/images/items/iced-latte-color.svg'
+    },
+
+];
+
 const servingArea = { x: 600 , y: 275, width: 100, height: 20 };
 let gameStarted = false;
 
