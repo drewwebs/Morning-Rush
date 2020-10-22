@@ -99,7 +99,7 @@ body {
   }
 }
 
-#start-screen {
+#start-screen, #game-over {
   width: 800px;
   height: 500px;
   position: absolute;
@@ -121,6 +121,7 @@ body {
   }
 
   & .description {
+    font-size: 14px;
     padding: 20px;
     line-height: 1.5;
   }
@@ -130,6 +131,7 @@ body {
   }
 }
 
-.hidden {
+#game-over {
+  font-size: 48px;
   display: none;
 }

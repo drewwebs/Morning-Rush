@@ -50,6 +50,7 @@ class Game {
         }
 
         for (let i = 0; i < this.guests.length; i++) {
+
             this.guests[i].update();
             this.guests[i].draw();
         }

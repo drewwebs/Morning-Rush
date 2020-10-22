@@ -154,6 +154,12 @@ window.addEventListener("load", () => {
             game.handleGuests();
             game.handleScoreboard();
             grinder.draw();
+        } else if (game.over) {
+            let gameOverDisplay = document.querySelector("#game-over");
+            let scoreDisplay = document.querySelector("#game-over .description");
+            scoreDisplay.textContent = `Score: ${game.score}`;
+            gameOverDisplay.style.display = "flex";
+            // document.querySelector("#game-over").style.display = "flex";
         }
     }
 
