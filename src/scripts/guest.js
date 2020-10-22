@@ -99,78 +99,77 @@ export default class Guest {
             this.width, this.height,
             this.x, this.y,
             this.width, this.height
-            );
-            
-            this.handleGuestFrame();
-            
-            if (this.showBubble) this.bubble.draw();
+        );
+        
+        this.handleGuestFrame();
+        
+        if (this.showBubble) this.bubble.draw();
+    }
+        
+    update() {
+        // handle guest collision
+        game.guests.forEach( guest => {
+            if (guest.id < this.id) {
+                if (game.collision(this, guest) && this.patience > 0) {
+                    this.wait();
+                } else {
+                    this.waiting = false;
+                    this.moving = true;
+                }
+            }
+        });
+        
+        // handle walking down to register
+        if (!this.ordered) {
+            if (!this.waiting && this.x > 144 && this.y > 0) {
+                this.x -= 0.3 * this.speed;
+            } else if (!this.waiting && this.x < 142 && this.y > 0) {
+                this.x += 0.3 * this.speed;
+            }
+            // place order at register
+            if (this.y >= 185) {
+                this.order();
+            }
         }
         
-        update() {
-            // handle guest collision
-            game.guests.forEach( guest => {
-                if (guest.id < this.id) {
-                    if (game.collision(this, guest) && this.patience > 0) {
-                        this.wait();
-                    } else {
-                        this.waiting = false;
-                        this.moving = true;
-                        
-                    }
-                }
-            });
-            
-            // handle walking down to register
-            if (!this.ordered) {
-                if (!this.waiting && this.x > 144 && this.y > 0) {
-                    this.x -= 0.3;
-                } else if (!this.waiting && this.x < 142 && this.y > 0) {
-                    this.x += 0.3;
-                }
-                // place order at register
-                if (this.y >= 185) {
-                    this.order();
-                }
-            }
-            
 
-            // wait for order at end of bar
+        // wait for order at end of bar
 
-            if (this.x >= 600) {
-                if (!this.frustrated && !this.fulfilled) {
-                    this.waitForOrder();
-                } else if (this.fulfilled) {
-                    this.waiting = false;
-                    this.showBubble = false;
-                    this.y -= game.speed;
-                    if (this.y + this.height < 0) {
-                        game.guests.splice(game.guests.indexOf(this), 1);
-                    }
-                    this.frameY = 3;
-                    return;
+        if (this.x >= 600) {
+            if (!this.frustrated && !this.fulfilled) {
+                this.waitForOrder();
+            } else if (this.fulfilled) {
+                this.waiting = false;
+                this.showBubble = false;
+                this.y -= game.speed;
+                if (this.y + this.height < 0) {
+                    game.guests.splice(game.guests.indexOf(this), 1);
                 }
-            }
-            
-            // Move bubble over
-            if (this.waiting) {
-                let collision = false;
-                game.guests.forEach(guest => {
-                    if (guest.id < this.id && this.showBubble && guest.showBubble && game.collision(this.bubble, guest.bubble)) {
-                        collision = true;
-                    }
-                });
-            
-                if (collision === false &&
-                    this.bubble.x + this.bubble.width / 2 < this.x + this.width / 2) {
-                        this.bubble.x += 1 * game.speed;
-                }
+                this.frameY = 3;
                 return;
             }
+        }
+        
+        // Move bubble over
+        if (this.waiting) {
+            let collision = false;
+            game.guests.forEach(guest => {
+                if (guest.id < this.id && this.showBubble && guest.showBubble && game.collision(this.bubble, guest.bubble)) {
+                    collision = true;
+                }
+            });
+        
+            if (collision === false &&
+                this.bubble.x + this.bubble.width / 2 < this.x + this.width / 2) {
+                    this.bubble.x += 1 * game.speed;
+            }
+            return;
+        }
+        
+        // walk to end of bar after ordering
+        if (this.ordered && !this.frustrated) {
+            this.x += this.speed;
             
-            // walk to end of bar after ordering
-            if (this.ordered && !this.frustrated) {
-                this.x += this.speed;
-                
             game.guests.forEach(guest => {
                 if (guest.id < this.id) {
                     if (this.showBubble && guest.showBubble && game.collision(this.bubble, guest.bubble)) {

@@ -1,6 +1,6 @@
 import Bubble from './bubble';
 import Guest from './guest';
-import { orderTypes, sprites } from './utilities';
+import { orderTypesEasy, orderTypesMedium, sprites } from './utilities';
 
 const canvas2 = document.getElementById('canvas2');
 const ctx2 = canvas2.getContext('2d');
@@ -11,10 +11,12 @@ canvas2.height = 500;
 
 class Game {
     constructor() {
-        this.speed = 1;
+        this.level = 1;
+        this.difficulty = 1;
+        this.speed = 1 + (this.level * this.difficulty / 4);
         this.guests = [];
-        this.numGuests = 5;
-        this.guestSpacing = 300 / this.speed;
+        this.numGuests = 3;
+        this.guestSpacing = 500 / this.speed;
         this.guestPatience = 500 / this.speed;
         this.numOrders = 0;
         this.lives = 5;
@@ -27,7 +29,14 @@ class Game {
             let y = i * -this.guestSpacing;
             let x = 105;
             let randomSprite = sprites[sprites.length * Math.random() | 0];
-            let randomOrder = orderTypes[orderTypes.length * Math.random() | 0];
+            let randomOrder;
+
+            if (this.level <= 2) {
+                randomOrder = orderTypesEasy[orderTypesEasy.length * Math.random() | 0];
+            } else {
+                randomOrder = orderTypesMedium[orderTypesEasy.length * Math.random() | 0];
+            }
+
             this.guests.push(new Guest(i, this.speed, x, y, this.guestPatience, randomOrder, randomSprite));
         }
     }
@@ -64,25 +73,11 @@ class Game {
     }
 
     nextLevel() {
-        this.speed *= 1.2;
+        this.level += 1;
         this.numGuests += 3;
         this.initGuests();
     }
 
-    // drawStartMenu() {
-    //     ctx2.fillStyle = "black";
-    //     ctx2.font = "bold 28pt roboto";
-    //     ctx2.fillText(`Warm yourself up at Shinigami Cafe!`, 325, 130);
-
-    //     ctx2.fillStyle = "black";
-    //     ctx2.font = "bold 18pt roboto";
-    //     ctx2.fillText(`Press 'Enter' to begin`, 275, 180);
-    // }
-
-    gameOver() {
-        game.guests = [];
-        game.speed = 0;
-    }
 
 }
 

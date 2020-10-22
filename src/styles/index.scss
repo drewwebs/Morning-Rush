@@ -62,14 +62,13 @@ body {
 }
 
 .item-bar canvas {
-  width: 150px;
-  height: 450px;
-  border: 1px solid black;
+  width: 222px;
+  height: 500px;
   position: absolute;
   top: 50%;
-  left: calc(50% + 500px);
+  left: calc(50% + 550px);
   transform: translate(-50%, -50%);
-  background: white;
+  background-image: url('/src/images/item-background.png');
 }
 
 .game-instructions div {

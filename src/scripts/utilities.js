@@ -3,7 +3,21 @@ import { game } from './game.js';
 import { cashier } from './cashier.js';
 import { grinder } from './grinder.js';
 
-export const orderTypes = ["Hot Coffee", "Redeye", "Latte", "Iced Coffee", "Espresso"];
+export const orderTypesEasy = [
+    "Hot Coffee",
+    "Iced Coffee",
+    "Espresso",
+];
+
+export const orderTypesMedium = [
+    "Hot Coffee", 
+    "Iced Coffee",
+    "Redeye", 
+    "Iced Redeye", 
+    "Espresso",
+    "Latte", 
+    "Iced Latte"
+];
 
 export const sprites = [
     { name: 'deadpool', width: 128, height: 192 },
@@ -26,7 +40,7 @@ export const items = [
         name: "Milk",
         width: 10, height: 20, x: 680, y: 325,
         frameDir: 2,
-        icon_url: './src/images/items/milk.svg'
+        icon_url: './src/images/items/milk-pitcher.png'
     },
 
     {
@@ -40,7 +54,7 @@ export const items = [
         name: "Portafilter",
         width: 100, height: 20, x: 490, y: 275,
         frameDir: 3,
-        icon_url: './src/images/items/portafilter.svg'
+        icon_url: './src/images/items/portafilter.png'
     }
 
 ];
@@ -51,7 +65,7 @@ export const upgrades = [
         width: 10, height: 20, x: 470, y: 275,
         reagents: ["Milk"],
         frameDir: 3,
-        icon_url: './src/images/items/red-milk-carton.svg'
+        icon_url: './src/images/items/steamed-milk.png'
     },
 
     {
@@ -67,7 +81,7 @@ export const upgrades = [
         width: 40, height: 20, x: 460, y: 355,
         reagents: ["Hot Coffee"],
         frameDir: 0,
-        icon_url: './src/images/items/iced-coffee.svg'
+        icon_url: './src/images/items/iced-coffee.png'
     },
 
     {
@@ -75,7 +89,7 @@ export const upgrades = [
         width: 1, height: 20, x: 370, y: 275,
         reagents: ["Portafilter"],
         frameDir: 3,
-        icon_url: './src/images/items/full-portafilter.svg'
+        icon_url: './src/images/items/portafilter-full.png'
     },
 
     {
@@ -91,7 +105,7 @@ export const upgrades = [
         width: 100, height: 20, x: 490, y: 275,
         reagents: ["Hot Coffee", "Ground Espresso"],
         frameDir: 3,
-        icon_url: './src/images/items/redeye.svg'
+        icon_url: './src/images/items/redeye.png'
     },
 
     {
@@ -99,7 +113,7 @@ export const upgrades = [
         width: 100, height: 20, x: 490, y: 275,
         reagents: ["Steamed Milk", "Espresso"],
         frameDir: 3,
-        icon_url: './src/images/items/latte.svg'
+        icon_url: ['./src/images/items/latte-1.png', './src/images/items/latte-2.png'][Math.floor(Math.random() * 2)]
     },
 
     {
@@ -107,7 +121,7 @@ export const upgrades = [
         width: 20, height: 20, x: 400, y: 355,
         reagents: ["Latte"],
         frameDir: 0,
-        icon_url: './src/images/items/iced-latte-color.svg'
+        icon_url: './src/images/items/iced-latte.png'
     },
 
 ];

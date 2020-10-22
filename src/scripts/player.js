@@ -6,8 +6,8 @@ canvas5.height = 500;
 
 const canvas6 = document.getElementById('canvas6');
 const ctx6 = canvas6.getContext('2d');
-canvas6.width = 150;
-canvas6.height = 450;
+canvas6.width = 222;
+canvas6.height = 500;
 
 
 import { game } from './game';
@@ -63,7 +63,7 @@ class Player {
             }
         });
 
-        if (this.inventory.length > 3) this.inventory.pop(); 
+        if (this.inventory.length > 6) this.inventory.pop(); 
 
 
     }
@@ -104,9 +104,15 @@ class Player {
 
 
     renderItems() {
-        this.inventory.forEach((item, i) => {
-            ctx6.drawImage(item.icon, 10, 10 + 150 * i, 125, 125);
-        });
+        if (this.inventory.length < 4) {
+            this.inventory.forEach((item, i) => {
+                ctx6.drawImage(item.icon, 45, 20 + 150 * i, 130, 130);
+            });
+        } else {
+            this.inventory.forEach((item, i) => { 
+                ctx6.drawImage(item.icon, i > 2 ? 115 : 35, 50 + 150 * (i % 3), 80, 80);
+            });
+        }
     }
 
     serveGuest(index) {
