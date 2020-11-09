@@ -2,6 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+$item-background: url('/src/images/item_background.png'); 
 $main-color: rgb(42, 165, 165);
 $accent-color: darken($main-color, 20%);
 $background-color: lighten($main-color, 40%);
@@ -68,7 +69,7 @@ body {
   top: 50%;
   left: calc(50% + 550px);
   transform: translate(-50%, -50%);
-  background-image: url('/src/images/item_background.png');
+  background-image: $item-background;
 }
 
 .game-instructions div {
