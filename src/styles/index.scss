@@ -2,7 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-$item-background: url('/src/images/item_background.png'); 
+$item-background: url('../images/item_background.png'); 
 $main-color: rgb(42, 165, 165);
 $accent-color: darken($main-color, 20%);
 $background-color: lighten($main-color, 40%);
