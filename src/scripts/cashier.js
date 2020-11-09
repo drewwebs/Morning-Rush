@@ -29,10 +29,6 @@ class Cashier {
         );
     }
 
-    move() {
-        // console.log('move');
-    }
-
 }
 
 export const cashier = new Cashier();

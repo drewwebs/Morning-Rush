@@ -31,8 +31,8 @@ class Game {
             let randomSprite = sprites[sprites.length * Math.random() | 0];
             let randomOrder;
 
-            if (this.level <= 2) {
-                randomOrder = orderTypesEasy[orderTypesEasy.length * Math.random() | 0];
+            if (this.level === 1) {
+                randomOrder = orderTypesEasy[i % 3];
             } else {
                 randomOrder = orderTypesMedium[orderTypesEasy.length * Math.random() | 0];
             }
