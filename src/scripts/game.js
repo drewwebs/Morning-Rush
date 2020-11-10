@@ -15,8 +15,8 @@ class Game {
         this.difficulty = 1;
         this.speed = 1 + (this.level * this.difficulty / 4);
         this.guests = [];
-        this.numGuests = 3;
-        this.guestSpacing = 500 / this.speed;
+        this.numGuests = 25;
+        this.guestSpacing = 200 / this.speed;
         this.guestPatience = 500 / this.speed;
         this.numOrders = 0;
         this.lives = 5;
